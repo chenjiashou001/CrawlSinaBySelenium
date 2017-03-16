@@ -1,0 +1,3 @@
+# CrawlSinaBySelenium
+use selenium to crawl sina user data, include base_info, tags, care_users
+please find some sinaaccounts for crawl...
