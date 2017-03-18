@@ -19,16 +19,16 @@ import com.mongodb.client.MongoDatabase;
 
 
 /**
- * ÓÃÀ´²Ù×÷mongodbÊı¾İ¿â
+ * ç”¨æ¥æ“ä½œmongodbæ•°æ®åº“
  * @author chenjiashou
  *
  */
 public class Jdbc {
 	static MongoDatabase MDB = null;
-	static final String database_name = "sina";//Õâ¸ö³ÌĞòÄ¬ÈÏÖ»»áÊ¹ÓÃÕâÒ»¸öÊı¾İ¿â
+	static final String database_name = "sina";//è¿™ä¸ªç¨‹åºé»˜è®¤åªä¼šä½¿ç”¨è¿™ä¸€ä¸ªæ•°æ®åº“
 	
 	/**
-	 * ±£Ö¤Õû¸ö³ÌĞòÖ»½øĞĞÁ¬½ÓÒ»´Î¡£
+	 * ä¿è¯æ•´ä¸ªç¨‹åºåªè¿›è¡Œè¿æ¥ä¸€æ¬¡ã€‚
 	 * @param database
 	 * @return
 	 */
@@ -41,7 +41,7 @@ public class Jdbc {
 	}
 	
 	/**
-	 * µÃµ½MongoColleciton by collectionName
+	 * å¾—åˆ°MongoColleciton by collectionName
 	 * @param collectionName
 	 * @return
 	 */
@@ -53,10 +53,10 @@ public class Jdbc {
 	}
 	
 	/**
-	 * ²åÈëdoc µ½ collectionNameÖĞ
+	 * æ’å…¥doc åˆ° collectionNameä¸­
 	 * @param collectionName
 	 * @param doc
-	 * @return ³É¹¦·µ»Øtrue,·ñÔò·µ»Øfalse¡£
+	 * @return æˆåŠŸè¿”å›true,å¦åˆ™è¿”å›falseã€‚
 	 */
 	public static boolean insert_doc(String collectionName, Document doc) {
 		MongoCollection<Document> coll = getCollection(collectionName);
@@ -65,7 +65,7 @@ public class Jdbc {
 	}
 	
 	/**
-	 * ²åÈëmany doc into collection
+	 * æ’å…¥many doc into collection
 	 * @param collectionName
 	 * @param docs
 	 * @return
@@ -77,7 +77,7 @@ public class Jdbc {
 	}
 	
 	/**
-	 * µÃµ½collectionNameËùÓĞÏî
+	 * å¾—åˆ°collectionNameæ‰€æœ‰é¡¹
 	 * @param collectionName
 	 * @return List<Document>
 	 */
@@ -94,7 +94,7 @@ public class Jdbc {
 	}
 	
 	/**
-	 * ½«Òª²éÑ¯µÄĞÅÏ¢Ğ´Èëfind_docÖĞ
+	 * å°†è¦æŸ¥è¯¢çš„ä¿¡æ¯å†™å…¥find_docä¸­
 	 * @param collectionName
 	 * @param find_doc
 	 * @return List<Document>
@@ -114,7 +114,7 @@ public class Jdbc {
 	}
 	
 	/**
-	 * É¾³ıÒ»¸öcollection
+	 * åˆ é™¤ä¸€ä¸ªcollection
 	 */
 	public static void deleteCollection(String collectionName) {
 		MongoCollection<Document> coll = getCollection(collectionName);
@@ -123,7 +123,7 @@ public class Jdbc {
 	}
 	
 	/**
-	 * ´ÓÎÄ¼şÖĞ¶ÁÈ¡docs£¬²åÈëCollectionÖĞÈ¥
+	 * ä»æ–‡ä»¶ä¸­è¯»å–docsï¼Œæ’å…¥Collectionä¸­å»
 	 */
 	public static void InsertToCollectionFromFile(String file_path, String collection_name) {
 		List<String> file_lines = FileUtil.readLogByList(file_path);
@@ -133,16 +133,16 @@ public class Jdbc {
 			try{
 				doc = Document.parse(file_line);
 			} catch(Exception e) {
-				System.out.println("InsertToCollectionFromFile ÖĞ, " + file_line + "ÎŞ·¨×ª»»ÎªDocument");
+				System.out.println("InsertToCollectionFromFile ä¸­, " + file_line + "æ— æ³•è½¬æ¢ä¸ºDocument");
 			}
 			if (doc != null) {
-				insert_doc(collection_name, doc);//²å½øÈ¥
+				insert_doc(collection_name, doc);//æ’è¿›å»
 			}
 		}
 	} 
 	
 	/**
-	 * ½«collection±£´æÖÁÎÄ¼şÖĞ
+	 * å°†collectionä¿å­˜è‡³æ–‡ä»¶ä¸­
 	 */
 	public static void SaveToFileFromCollection(String file_save_path, String collection_name) {
 		List<Document> docs = find(collection_name);
@@ -153,3 +153,4 @@ public class Jdbc {
 		}
 	}
 }
+

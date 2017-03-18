@@ -2,8 +2,65 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/WebCollector-2.40-beta.jar"/>
-	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/selenium-java-2.40.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/apache-mime4j-0.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/bsh-1.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/commons-codec-1.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/commons-dbcp-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/commons-exec-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/commons-io-2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/commons-jxpath-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/commons-pool-1.5.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/cssparser-0.9.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/guava-15.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/hamcrest-library-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/htmlunit-2.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/htmlunit-core-js-2.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/httpclient-4.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/httpcore-4.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/httpmime-4.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/ini4j-0.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/jcommander-1.29.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/je-5.0.73.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/jetty-websocket-8.1.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/jna-3.4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/jna-platform-3.4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/json-20080701.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/json-20140107.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/jsoup-1.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/junit-dep-4.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/juniversalchardet-1.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/mongo-java-driver-3.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/mysql-connector-java-5.1.40.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/nekohtml-1.9.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/netty-3.5.7.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/operadriver-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/phantomjsdriver-1.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/protobuf-java-2.4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/sac-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/selenium-java-2.40.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/selenium-java-2.40.0-srcs.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/serializer-2.7.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/slf4j-log4j12-1.7.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/spring-beans-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/spring-core-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/spring-jdbc-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/spring-tx-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/testng-6.8.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/WebCollector-2.40-beta.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/xalan-2.7.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/xercesImpl-2.10.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/xml-apis-1.4.01.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/chardet.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chenhuan001/workspace/CrawlSinaBySelenium/lib/cpdetector_1.0.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

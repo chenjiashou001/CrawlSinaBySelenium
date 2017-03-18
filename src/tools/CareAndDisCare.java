@@ -19,7 +19,7 @@ public class CareAndDisCare {
 	static Map<String, String> id_link_program;
 	
 	/**
-	 * ¼ÓÔØuid Óë  program_name
+	 * åŠ è½½uid ä¸  program_name
 	 */
 	private static void getIdLinkProgram() {
 		id_link_program = new HashMap<String, String>();
@@ -63,7 +63,7 @@ public class CareAndDisCare {
 							String usercard = ele_care_program_name.getAttribute("usercard");
 							program_id = usercard.substring(usercard.indexOf("=") + 1);
 							//System.out.println(program_name + " " + program_id);
-							//È»ºó°Ñ²»ÔÚÊı¾İ¿âÄÚµÄÊı¾İ¼ÇÂ¼²¢È¡Ïû¹Ø×¢
+							//ç„¶åæŠŠä¸åœ¨æ•°æ®åº“å†…çš„æ•°æ®è®°å½•å¹¶å–æ¶ˆå…³æ³¨
 							if (!id_link_program.containsKey(program_id)) {
 								//System.out.println("not in" + program_name + " " + program_id);
 								Document need_discare = new Document();
@@ -71,7 +71,7 @@ public class CareAndDisCare {
 								need_discare.append("program_id", program_id);
 								need_discare.append("prgoram_name", program_name);
 								//Jdbc.insert_doc("SAVEFRIENDINFO", need_discare);
-								//È»ºóÈ¡Ïû¹Ø×¢
+								//ç„¶åå–æ¶ˆå…³æ³¨
 								
 							}
 						}
@@ -88,7 +88,7 @@ public class CareAndDisCare {
 					
 				}
 				
-				//È»ºó¾ÍÊÇÈ¡Ïû¹Ø×¢
+				//ç„¶åå°±æ˜¯å–æ¶ˆå…³æ³¨
 				/*
 				while (true) {
 					int flag = 0;
@@ -113,7 +113,7 @@ public class CareAndDisCare {
 								find_doc.append("program_id", program_id);
 								List<Document> find_docs = Jdbc.find("SAVEFRIENDINFO", find_doc);
 								if (find_docs.size() != 0) {
-									//ĞèÒªÉ¾³ı
+									//éœ€è¦åˆ é™¤
 									System.out.println(program_name + " " + program_id);
 									WebElement markbtn = care_program.findElement(By.className("markup_choose"));
 									if (markbtn != null) {
@@ -164,3 +164,4 @@ public class CareAndDisCare {
 	}
 
 }
+

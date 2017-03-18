@@ -12,7 +12,7 @@ public class OnlineConnectMongodb {
 
 	public static void main(String[] args) {
 		MongoClient mongoClient = new MongoClient( "192.168.10.142" , 27017 );
-        // 连接到数据库
+        // 杩炴帴鍒版暟鎹簱
         MongoDatabase mongoDatabase = mongoClient.getDatabase("sina");  
         System.out.println("Connect to database successfully");
         MongoCollection<Document> collection = mongoDatabase.getCollection("user_program_data");
@@ -24,3 +24,4 @@ public class OnlineConnectMongodb {
 	}
 
 }
+

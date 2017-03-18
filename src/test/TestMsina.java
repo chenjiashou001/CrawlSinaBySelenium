@@ -44,7 +44,7 @@ public class TestMsina {
     	ChromeOptions option = new ChromeOptions(); 
     	option.addArguments("-test-type"); 
     	option.addArguments("-start-maximized");
-    	//½ûÖ¹¼ÓÔØÍ¼Æ¬
+    	//ç¦æ­¢åŠ è½½å›¾ç‰‡
     	Map<String, Object> prefs = new HashMap<String, Object>();
     	prefs.put("profile.managed_default_content_settings.images", 2);
     	option.setExperimentalOption("prefs", prefs);
@@ -56,10 +56,10 @@ public class TestMsina {
         driver.findElement(By.id("loginName")).clear();
         driver.findElement(By.id("loginName")).sendKeys(sina_account[i]);
 
-        //ÕÒµ½ÃûÎª"loginPassword"µÄÔªËØ£¬ÌîĞ´ÃÜÂë
+        //æ‰¾åˆ°åä¸º"loginPassword"çš„å…ƒç´ ï¼Œå¡«å†™å¯†ç 
         driver.findElement(By.id("loginPassword")).clear();
         driver.findElement(By.id("loginPassword")).sendKeys(sina_password[i]);
-        //ÕÒµ½µÇÂ¼°´Å¥£¬µã»÷
+        //æ‰¾åˆ°ç™»å½•æŒ‰é’®ï¼Œç‚¹å‡»
         driver.findElement(By.id("loginAction")).click();
         Thread.sleep(20000);
         
@@ -79,9 +79,9 @@ public class TestMsina {
         	id++;
         }
         
-        //È»ºó¾ÍÊÇÕÒºÃÓÑ
+        //ç„¶åå°±æ˜¯æ‰¾å¥½å‹
         /*
-        WebElement logDiv = driver.findElement(By.xpath("//*[@data-text='ÎÒ']"));
+        WebElement logDiv = driver.findElement(By.xpath("//*[@data-text='æˆ‘']"));
         logDiv.click();
         Thread.sleep(BASETIME);
         
@@ -91,13 +91,13 @@ public class TestMsina {
         fanbtn.click();
         
         
-        //½øÈëºÃÓÑÒ³Ãæ
+        //è¿›å…¥å¥½å‹é¡µé¢
         Thread.sleep(BASETIME);
         List<WebElement> friends = driver.findElements(By.xpath("//*[@class='card m-panel card28 m-avatar-box']"));
         System.out.println(friends.size());
         WebElement friendbtn = friends.get(0);
         friendbtn.click();
-        //»ñÈ¡Î¢²©ÄÚÈİ
+        //è·å–å¾®åšå†…å®¹
         Thread.sleep(BASETIME);
         List<WebElement> texts = driver.findElements(By.xpath("//*[@class='weibo-text']"));
         for (int i = 0; i < texts.size(); i++) {
@@ -105,13 +105,14 @@ public class TestMsina {
         }
         */
         
-        //»ñÈ¡cookies
+        //è·å–cookies
 //        Set<Cookie> cookies = driver.manage().getCookies();
 //        String cookieStr = "";
 //        for (Cookie cookie : cookies) {
 //        	cookieStr += cookie.getName() + "=" + cookie.getValue() + "; ";
 //        }
 //        System.out.println(cookieStr);
-        //²»¹ıÒ»¸öWebDriverÔÚµÇÂ¼ºó×Ô´øÁËCookiesÁË£¬Ö±½Ó´ò¿ªÆäËûµØ·½Ò²ÊÇ¿ÉÒÔµÄ
+        //ä¸è¿‡ä¸€ä¸ªWebDriveråœ¨ç™»å½•åè‡ªå¸¦äº†Cookiesäº†ï¼Œç›´æ¥æ‰“å¼€å…¶ä»–åœ°æ–¹ä¹Ÿæ˜¯å¯ä»¥çš„
 	}
 }
+

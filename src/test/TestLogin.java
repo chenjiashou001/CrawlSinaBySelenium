@@ -13,8 +13,8 @@ public class TestLogin {
 		// TODO Auto-generated method stub
 		System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
 		ChromeOptions option = new ChromeOptions(); 
-    	option.addArguments("-test-type"); //²âÊÔÄ£Ê½£¬¶¥²¿¾¯¸æºöÂÔ
-    	option.addArguments("-start-maximized");//×î´ó»¯
+    	option.addArguments("-test-type"); //æµ‹è¯•æ¨¡å¼ï¼Œé¡¶éƒ¨è­¦å‘Šå¿½ç•¥
+    	option.addArguments("-start-maximized");//æœ€å¤§åŒ–
         WebDriver driver = new ChromeDriver(option);
         LoginUsersManage manage = new LoginUsersManage();
         Login login = new Login();
@@ -22,12 +22,13 @@ public class TestLogin {
     	if (login.login(manage.getUserByIndex(1).getName(), 
 					manage.getUserByIndex(1).getPassword(), 
 					manage.getUserByIndex(1).getSafe_level(), driver)) {
-    		System.out.println("µÇÂ¼³É¹¦");
+    		System.out.println("ç™»å½•æˆåŠŸ");
     	} else {
-    		System.out.println("µÇÂ¼Ê§°Ü");
+    		System.out.println("ç™»å½•å¤±è´¥");
     	}
     	
         driver.close();
 	}
 
 }
+

@@ -2,19 +2,19 @@ package tools;
 
 import java.io.UnsupportedEncodingException;
 /**
- * url×ªÂë¡¢½âÂë
+ * urlè½¬ç ã€è§£ç 
  *
  * @author lifq 
- * @date 2015-3-17 ÏÂÎç04:09:35
+ * @date 2015-3-17 ä¸‹åˆ04:09:35
  */
 public class UrlUtil {
     private final static String ENCODE = "UTF-8"; 
     /**
-     * URL ½âÂë
+     * URL è§£ç 
      *
      * @return String
      * @author lifq
-     * @date 2015-3-17 ÏÂÎç04:09:51
+     * @date 2015-3-17 ä¸‹åˆ04:09:51
      */
     public static String getURLDecoderString(String str) {
         String result = "";
@@ -29,11 +29,11 @@ public class UrlUtil {
         return result;
     }
     /**
-     * URL ×ªÂë
+     * URL è½¬ç 
      *
      * @return String
      * @author lifq
-     * @date 2015-3-17 ÏÂÎç04:10:28
+     * @date 2015-3-17 ä¸‹åˆ04:10:28
      */
     public static String getURLEncoderString(String str) {
         String result = "";
@@ -52,10 +52,10 @@ public class UrlUtil {
      * 
      * @return void
      * @author lifq
-     * @date 2015-3-17 ÏÂÎç04:09:16
+     * @date 2015-3-17 ä¸‹åˆ04:09:16
      */
     public static void main(String[] args) {
-        String str = "¾üÊÂ±¨µÀ";
+        String str = "å†›äº‹æŠ¥é“";
         System.out.println(str = getURLEncoderString(str));
         System.out.println(str = getURLEncoderString(str));
         //%25E5%2586%259B%25E4%25BA%258B%25E6%258A%25A5%25E9%2581%2593
@@ -64,3 +64,4 @@ public class UrlUtil {
     }
 
 }
+

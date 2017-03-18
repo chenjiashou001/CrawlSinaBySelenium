@@ -4,7 +4,7 @@ public class LoginUser {
 	int id;
 	String name;
 	String password;
-	int safe_level;//ÕËºÅ°²È«µÈ¼¶£¬0 ±íÊ¾²»ĞèÒªÑéÖ¤Âë£¬ 1 ±íÊ¾ĞèÒªÑéÖ¤Âë
+	int safe_level;//è´¦å·å®‰å…¨ç­‰çº§ï¼Œ0 è¡¨ç¤ºä¸éœ€è¦éªŒè¯ç ï¼Œ 1 è¡¨ç¤ºéœ€è¦éªŒè¯ç 
 	
 	public int getId() {
 		return id;
@@ -39,3 +39,4 @@ public class LoginUser {
 	}
 	
 }
+

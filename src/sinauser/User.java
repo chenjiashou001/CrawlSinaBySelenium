@@ -58,7 +58,7 @@ public class User {
 	}
 	
 	/**
-	 * ½«userµÄĞÅÏ¢×ª»¯ÎªDocumentÎÄµµ
+	 * å°†userçš„ä¿¡æ¯è½¬åŒ–ä¸ºDocumentæ–‡æ¡£
 	 * @return
 	 */
 	public Document getUserDoc(String come_from) {
@@ -94,12 +94,12 @@ public class User {
 		residence = null;
 		birthday = null;
 		register_time = null;
-		sex = -1;//±íÊ¾Ã»ÓĞ
+		sex = -1;//è¡¨ç¤ºæ²¡æœ‰
 		is_master = false;
 	}
 	
 	/**
-	 * ½«pageÉÏµÄĞÅÏ¢Ìî³äµ½ÓÃ»§µÄĞÅÏ¢ÖĞÈ¥
+	 * å°†pageä¸Šçš„ä¿¡æ¯å¡«å……åˆ°ç”¨æˆ·çš„ä¿¡æ¯ä¸­å»
 	 * @param driver
 	 * @param flag_last 
 	 * @param program_name 
@@ -107,7 +107,7 @@ public class User {
 	 * @return
 	 */
 	public boolean SetUserByPage(WebDriver driver, String src, String id, boolean flag_last, String program_name, Map<String, String> id_link_program) {
-		//TODO  ÒªÖØĞÂĞ´ÏÂÅĞ¶ÏµÄ·½·¨
+		//TODO  è¦é‡æ–°å†™ä¸‹åˆ¤æ–­çš„æ–¹æ³•
 		int wait_time = 6;
 		if (flag_last) {
 			wait_time = 300;
@@ -116,7 +116,7 @@ public class User {
 		try{
 			driver.get(src);
 		} catch(Exception e) {
-			System.out.println("ÏêÏ¸ĞÅÏ¢Ò³Ãæ" + id + "¼ÓÔØÊ±¼ä¹ı³¤");
+			System.out.println("è¯¦ç»†ä¿¡æ¯é¡µé¢" + id + "åŠ è½½æ—¶é—´è¿‡é•¿");
 		}
 		
 		try {
@@ -157,7 +157,7 @@ public class User {
 			} 
 		}
 		
-		//µÈ¼¶ĞÅÏ¢
+		//ç­‰çº§ä¿¡æ¯
 		List<WebElement> e_tmp_levels = driver.findElements(By.xpath("//*[@class='level_box S_txt2']"));
 		String str_level = null;
 		if (e_tmp_levels.size() != 0) {
@@ -172,19 +172,19 @@ public class User {
 		List<WebElement> e_divs = driver.findElements(By.xpath("//*[@class='PCD_text_b PCD_text_b2']"));
 		for (int i = 0; i < e_divs.size(); i++) {
 			WebElement tmpe = e_divs.get(i);
-			List<WebElement> e_tmp_names = tmpe.findElements(By.className("obj_name"));//²»ÄÜº¬¿Õ¸ñ¡££¿
+			List<WebElement> e_tmp_names = tmpe.findElements(By.className("obj_name"));//ä¸èƒ½å«ç©ºæ ¼ã€‚ï¼Ÿ
 			String tmp_name = null;
 			if (e_tmp_names.size() > 0) {
 				tmp_name = e_tmp_names.get(0).getText();
 			}
 			//System.out.println(tmp_name);
-			if (tmp_name.equals("»ù±¾ĞÅÏ¢")) {
+			if (tmp_name.equals("åŸºæœ¬ä¿¡æ¯")) {
 			
-			} else if (tmp_name.equals("±êÇ©ĞÅÏ¢")) {
+			} else if (tmp_name.equals("æ ‡ç­¾ä¿¡æ¯")) {
 				
-			} else if (tmp_name.equals("¹¤×÷ĞÅÏ¢")) {
+			} else if (tmp_name.equals("å·¥ä½œä¿¡æ¯")) {
 				
-			} else if (tmp_name.equals("½ÌÓıĞÅÏ¢")) {
+			} else if (tmp_name.equals("æ•™è‚²ä¿¡æ¯")) {
 				
 			}
 		}
@@ -192,33 +192,33 @@ public class User {
 		for (int i = 0; i < e_quotes.size(); i++) {
 			String little_info = e_quotes.get(i).getText();
 			//System.out.println(little_info);
-			String title = little_info.substring(0, little_info.indexOf("£º"));
-			String testquote = "£º";
+			String title = little_info.substring(0, little_info.indexOf("ï¼š"));
+			String testquote = "ï¼š";
 			//System.out.println(testquote.length());
-			String content = little_info.substring(little_info.indexOf("£º") + testquote.length());
+			String content = little_info.substring(little_info.indexOf("ï¼š") + testquote.length());
 			//System.out.println(title);
 			//System.out.println("|| " + content);
 			
-			if (title.equals("ËùÔÚµØ")) {
+			if (title.equals("æ‰€åœ¨åœ°")) {
 				residence = content;
 			}
-			if (title.equals("ÉúÈÕ")) {
+			if (title.equals("ç”Ÿæ—¥")) {
 				birthday = content;
 			}
-			if (title.equals("×¢²áÊ±¼ä")) {
+			if (title.equals("æ³¨å†Œæ—¶é—´")) {
 				register_time = content;
 			}
-			if (title.equals("±êÇ©")) {
+			if (title.equals("æ ‡ç­¾")) {
 				String[] tmp_tags = content.split("\n");
 				for (int j = 1; j < tmp_tags.length; j++) {
 					tags.add(tmp_tags[j]);
 				}
 			}
-			if (title.equals("ĞÔ±ğ")) {
-				if (content.indexOf("ÄĞ") != -1) {
+			if (title.equals("æ€§åˆ«")) {
+				if (content.indexOf("ç”·") != -1) {
 					sex = 1;
 				}
-				if (content.indexOf("Å®") != -1) {
+				if (content.indexOf("å¥³") != -1) {
 					sex = 0;
 				}
 			}
@@ -233,7 +233,7 @@ public class User {
 	}
 	
 	/**
-	 * ¶ÁÈ¡ÓÃ»§¹Ø×¢ÓÃ»§ĞÅÏ¢
+	 * è¯»å–ç”¨æˆ·å…³æ³¨ç”¨æˆ·ä¿¡æ¯
 	 * @param driver
 	 * @param program_name
 	 * @param id
@@ -250,7 +250,7 @@ public class User {
 		} catch(Exception e) {
 		}
 		
-		//²»ÖĞ¶Ï
+		//ä¸ä¸­æ–­
 		Sleep.sleep(2000);
 		care_programs.add(program_name);
 		List<WebElement> follows = driver.findElements(By.xpath("//*[@class='follow_item S_line2']"));
@@ -377,3 +377,4 @@ public class User {
 	}
 	
 }
+

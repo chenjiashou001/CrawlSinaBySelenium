@@ -1,6 +1,7 @@
 package tools;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
@@ -16,9 +17,9 @@ public class SeleniumUtil {
 	public static WebDriver getDriver() {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\chenhuan001\\AppData\\Local\\Google\\Chrome\\Application\\chromedriver.exe");
 		ChromeOptions option = new ChromeOptions(); 
-    	option.addArguments("-test-type"); //²âÊÔÄ£Ê½£¬¶¥²¿¾¯¸æºöÂÔ
-    	option.addArguments("-start-maximized");//×î´ó»¯
-    	//½ûÖ¹¼ÓÔØÍ¼Æ¬
+    	option.addArguments("-test-type"); //æµ‹è¯•æ¨¡å¼ï¼Œé¡¶éƒ¨è­¦å‘Šå¿½ç•¥
+    	option.addArguments("-start-maximized");//æœ€å¤§åŒ–
+    	//ç¦æ­¢åŠ è½½å›¾ç‰‡
 //    	Map<String, Object> prefs = new HashMap<String, Object>();
 //    	prefs.put("profile.managed_default_content_settings.images", 2);
 //    	option.setExperimentalOption("prefs", prefs);
@@ -27,38 +28,39 @@ public class SeleniumUtil {
         return driver;
 	}
 	
-	public static void getAndSaveUserCookie(WebDriver driver, int begin_index2, int end_index2) {
+	public static void getAndSaveUserCookie(WebDriver driver, int[] user_ids) {
 		LoginUsersManage manage = new LoginUsersManage();
 		Login login = new Login();
-		for (int i = begin_index2; i <= end_index2; i++) {
+		for (int ii = 0; ii < user_ids.length; ii++) {
+			int user_index = user_ids[ii];
 			//sleep(500);
 			//sleep(20000);
 			try{
 				driver.manage().deleteAllCookies();
 			} catch(Exception e) {
-				System.out.println("deleteAllCookiesÓĞÒì³£");
+				System.out.println("deleteAllCookiesæœ‰å¼‚å¸¸");
 				driver.close();
 				driver = SeleniumUtil.getDriver();
-				i--;
+				ii--;
 				continue;
 			}
 			//sleep(500);
-			if (login.login(manage.getUserByIndex(i).getName(), 
-						manage.getUserByIndex(i).getPassword(), 
-						manage.getUserByIndex(i).getSafe_level(), 
+			if (login.login(manage.getUserByIndex(user_index).getName(), 
+						manage.getUserByIndex(user_index).getPassword(), 
+						manage.getUserByIndex(user_index).getSafe_level(), 
 						driver) ) {
-				System.out.println("ÓÃ»§" + i + "µÇÂ¼³É¹¦");
+				System.out.println("ç”¨æˆ·" + user_index + "ç™»å½•æˆåŠŸ");
 			} else {
-				System.out.println("ÓÃ»§" + i + "µÇÂ¼Ê§°Ü");
+				System.out.println("ç”¨æˆ·" + user_index + "ç™»å½•å¤±è´¥");
 			}
-			Sleep.sleep(60000);
-			//ÏÖÔÚÊÇÓĞÁËcookieµÄdriver
-			if (CookieUtil.save(String.valueOf(i), driver) == false) {
-				i--;
-				continue;//ÖØĞÂÀ´
+			//Sleep.sleep(60000);
+			//ç°åœ¨æ˜¯æœ‰äº†cookieçš„driver
+			if (CookieUtil.save(String.valueOf(user_index), driver) == false) {
+				ii--;
+				continue;//é‡æ–°æ¥
 			}
 		}
-		//±£´æºÃÁËcookie
+		//ä¿å­˜å¥½äº†cookie
 	}
 
 	private static void sleep(int i) {
@@ -71,3 +73,4 @@ public class SeleniumUtil {
 		}
 	}
 }
+

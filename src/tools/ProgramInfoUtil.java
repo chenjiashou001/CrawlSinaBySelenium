@@ -7,6 +7,11 @@ import org.bson.Document;
 
 import mongodb.Jdbc;
 
+/**
+ * 处理programinfo
+ * @author chenhuan001
+ *
+ */
 public class ProgramInfoUtil {
 
 	
@@ -40,3 +45,5 @@ public class ProgramInfoUtil {
 
 	
 }
+
+

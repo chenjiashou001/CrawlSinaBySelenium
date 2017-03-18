@@ -23,7 +23,7 @@ public class TestJdbc {
 			try{
 				doc = Document.parse(file_line);
 			} catch(Exception e) {
-				System.out.println("InsertToCollectionFromFile ÷–, " + file_line + "Œﬁ∑®◊™ªªŒ™Document");
+				System.out.println("InsertToCollectionFromFile ‰∏≠, " + file_line + "Êó†Ê≥ïËΩ¨Êç¢‰∏∫Document");
 			}
 			if (doc != null) {
 				String id = doc.getString("id");
@@ -57,3 +57,4 @@ public class TestJdbc {
 		//Jdbc.SaveToFileFromCollection("user_program_data.txt", "user_program_data");
 		//Jdbc.InsertToCollectionFromFile("user_program_data.txt", "user_program_data");
 }
+

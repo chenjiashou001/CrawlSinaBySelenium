@@ -25,15 +25,15 @@ public class ClawerByUserId {
 	
 	static final int MAX_TRY_TIME = 3;
 	/**
-	 * Î¢²©µÇÂ¼£¬»ñÈ¡cookies
-	 * @return ´øÓĞµÇÂ¼ĞÅÏ¢cookiesµÄWebDriver
+	 * å¾®åšç™»å½•ï¼Œè·å–cookies
+	 * @return å¸¦æœ‰ç™»å½•ä¿¡æ¯cookiesçš„WebDriver
 	 */
 	public WebDriver login(String username, String password, int flag_validate) {
 		System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
 		ChromeOptions option = new ChromeOptions(); 
-    	option.addArguments("-test-type"); //²âÊÔÄ£Ê½£¬¶¥²¿¾¯¸æºöÂÔ
-    	option.addArguments("-start-maximized");//×î´ó»¯
-    	//½ûÖ¹¼ÓÔØÍ¼Æ¬
+    	option.addArguments("-test-type"); //æµ‹è¯•æ¨¡å¼ï¼Œé¡¶éƒ¨è­¦å‘Šå¿½ç•¥
+    	option.addArguments("-start-maximized");//æœ€å¤§åŒ–
+    	//ç¦æ­¢åŠ è½½å›¾ç‰‡
 //    	Map<String, Object> prefs = new HashMap<String, Object>();
 //    	prefs.put("profile.managed_default_content_settings.images", 2);
 //    	option.setExperimentalOption("prefs", prefs);
@@ -57,7 +57,7 @@ public class ClawerByUserId {
 	}
 	
 	/**
-	 * µÃµ½Ò»×éÓÃ»§µÄĞÅÏ¢,²¢´æÈëmongodb
+	 * å¾—åˆ°ä¸€ç»„ç”¨æˆ·çš„ä¿¡æ¯,å¹¶å­˜å…¥mongodb
 	 * @param userids
 	 * @return
 	 */
@@ -86,7 +86,7 @@ public class ClawerByUserId {
 			}
 			document.append("tags", str_tag);
 			rand_sleep(2000,2000);
-			//È»ºó¾ÍÊÇ´æ´¢Î¢²©ÄÚÈİ
+			//ç„¶åå°±æ˜¯å­˜å‚¨å¾®åšå†…å®¹
 			url = "http://m.weibo.cn/u/" + id + "?uid=" + id + "&luicode=10000012&lfid=1005052644015861_-_FANS";
 			driver.get(url);
 			rand_sleep(5000,10000);
@@ -100,7 +100,7 @@ public class ClawerByUserId {
 				if (contents.size() == 0 || contents.size() == pre || contents.size() > 100) {
 					break;
 				}
-				pre = contents.size();//´óĞ¡Ã»ÓĞ±äÒ²Ìø³ö
+				pre = contents.size();//å¤§å°æ²¡æœ‰å˜ä¹Ÿè·³å‡º
 				String time = contents.get(pre - 1).getText();
 				System.out.println("time: " + time);
 				if (time.length() > 3 && time.substring(0, 2).equals("20")) {
@@ -139,21 +139,21 @@ public class ClawerByUserId {
 	}
 
 	private void savetomongodb(Document document) {
-		// Á¬½Óµ½ mongodb ·şÎñ
+		// è¿æ¥åˆ° mongodb æœåŠ¡
         MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
         
-        // Á¬½Óµ½Êı¾İ¿â
+        // è¿æ¥åˆ°æ•°æ®åº“
         MongoDatabase mongoDatabase = mongoClient.getDatabase("sina");  
         System.out.println("Connect to database successfully");
         
         MongoCollection<Document> collection = mongoDatabase.getCollection("userdata");
-        System.out.println("¼¯ºÏ userdata Ñ¡Ôñ³É¹¦");
+        System.out.println("é›†åˆ userdata é€‰æ‹©æˆåŠŸ");
         
         collection.insertOne(document);
 	}
 
 	/**
-	 * Ïß³ÌĞİÃßsÃë
+	 * çº¿ç¨‹ä¼‘çœ sç§’
 	 * @param s
 	 */
 	private void sleep(int s) {
@@ -221,3 +221,4 @@ class WaitContent extends WebLoad {
 	}
 	
 }
+

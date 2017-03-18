@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class TestFile {
-    //Ğ´ÎÄ¼ş£¬Ö§³ÖÖĞÎÄ×Ö·û£¬ÔÚlinux redhadÏÂ²âÊÔ¹ı
+    //å†™æ–‡ä»¶ï¼Œæ”¯æŒä¸­æ–‡å­—ç¬¦ï¼Œåœ¨linux redhadä¸‹æµ‹è¯•è¿‡
     public static void writeLog(String path, String str)
     {
         try
@@ -13,11 +13,11 @@ public class TestFile {
         if(!file.exists())
             file.createNewFile();
         //SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        FileOutputStream out=new FileOutputStream(file,true); //Èç¹û×·¼Ó·½Ê½ÓÃtrue        
+        FileOutputStream out=new FileOutputStream(file,true); //å¦‚æœè¿½åŠ æ–¹å¼ç”¨true        
         StringBuffer sb=new StringBuffer();
         //sb.append("-----------"+sdf.format(new Date())+"------------\n");
         sb.append(str+"\r\n");
-        out.write(sb.toString().getBytes("utf-8"));//×¢ÒâĞèÒª×ª»»¶ÔÓ¦µÄ×Ö·û¼¯
+        out.write(sb.toString().getBytes("utf-8"));//æ³¨æ„éœ€è¦è½¬æ¢å¯¹åº”çš„å­—ç¬¦é›†
         out.close();
         }
         catch(IOException ex)
@@ -37,7 +37,7 @@ public class TestFile {
 //            BufferedReader br=new BufferedReader(new FileReader(file));            
 //            while((tempstr=br.readLine())!=null)
 //                sb.append(tempstr);    
-            //ÁíÒ»ÖÖ¶ÁÈ¡·½Ê½
+            //å¦ä¸€ç§è¯»å–æ–¹å¼
             FileInputStream fis=new FileInputStream(file);
             BufferedReader br=new BufferedReader(new InputStreamReader(fis));
             while((tempstr=br.readLine())!=null)
@@ -52,3 +52,4 @@ public class TestFile {
 
 
 }
+

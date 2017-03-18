@@ -25,7 +25,7 @@ public class LoginUsersManage {
 	public LoginUsersManage() {
 		users = new ArrayList<LoginUser>();
 		now_index = -1;
-		//ÔÚmongodbÖĞÕÒ³öµÇÂ¼ÕËºÅÓëÃÜÂë
+		//åœ¨mongodbä¸­æ‰¾å‡ºç™»å½•è´¦å·ä¸å¯†ç 
 		List<Document> docs = Jdbc.find("loginuser");
 		for (int i = 0; i < docs.size(); i++) {
 			Document doc = docs.get(i);
@@ -42,7 +42,7 @@ public class LoginUsersManage {
 	}
 	
 	/**
-	 * µÃµ½µ±Ç°ÓÃ»§
+	 * å¾—åˆ°å½“å‰ç”¨æˆ·
 	 * @return
 	 */
 	public LoginUser getNowUser() {
@@ -51,7 +51,7 @@ public class LoginUsersManage {
 	
 	
 	/**
-	 * µÃµ½ÏÂÒ»¸öµÇÂ¼ÓÃ»§
+	 * å¾—åˆ°ä¸‹ä¸€ä¸ªç™»å½•ç”¨æˆ·
 	 * @return
 	 */
 	public LoginUser next() {
@@ -60,7 +60,7 @@ public class LoginUsersManage {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ»¹ÓĞÏÂÒ»¸öÓÃ»§
+	 * åˆ¤æ–­æ˜¯å¦è¿˜æœ‰ä¸‹ä¸€ä¸ªç”¨æˆ·
 	 * @return
 	 */
 	public boolean hasNext() {
@@ -71,7 +71,7 @@ public class LoginUsersManage {
 	}
 	
 	/**
-	 * µÃµ½users[id]
+	 * å¾—åˆ°users[id]
 	 * @param id
 	 * @return
 	 */
@@ -80,3 +80,4 @@ public class LoginUsersManage {
 	}
 	
 }
+

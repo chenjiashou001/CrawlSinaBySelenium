@@ -30,47 +30,20 @@ import tools.SeleniumUtil;
 import tools.UrlUtil;
 
 public class AnaylzeTvProgram {
-
-	static String [] program_name = {
-			"starroad_user",//0
-			"happycamp_user",//1
-			"sanshensanshi_user",//2
-			"xingjingduizhang_user",//3
-			"ÎÒÊÇ¸èÊÖ",//4
-			"NBA",//5
-			"·Ç³ÏÎğÈÅ",//6
-			"¾üÊÂ¼ÇÊµ",//7
-			"ÖĞ¹úÖ®ĞÇ",//8
-			"Ëæ»ú³éÑù",//9
-	};
 	
-	static String [] program_url = {
-			"http://s.weibo.com/weibo/%25E6%2598%259F%25E5%2585%2589%25E5%25A4%25A7%25E9%2581%2593&region=custom:34:1000&typeall=1&suball=1&page=",
-			"http://s.weibo.com/weibo/%25E5%25BF%25AB%25E4%25B9%2590%25E5%25A4%25A7%25E6%259C%25AC%25E8%2590%25A5&region=custom:34:1&typeall=1&suball=1&page=",
-			"http://s.weibo.com/weibo/%25E4%25B8%2589%25E7%2594%259F%25E4%25B8%2589%25E4%25B8%2596&region=custom:34:1&typeall=1&suball=1&timescope=custom:2016-02-01-0:2017-02-27-4&page=",
-			"http://s.weibo.com/weibo/%25E5%2588%2591%25E8%25AD%25A6%25E9%2598%259F%25E9%2595%25BF&b=1&page=",
-			"http://s.weibo.com/weibo/%25E6%2588%2591%25E6%2598%25AF%25E6%25AD%258C%25E6%2589%258B&region=custom:34:1&typeall=1&suball=1&timescope=custom:2016-02-02-1:2017-02-28-0&page=",
-			"http://s.weibo.com/weibo/NBA&region=custom:34:1&typeall=1&suball=1&timescope=custom:2016-01-06-4:2017-02-28-0&page=",
-			"http://s.weibo.com/weibo/%25E9%259D%259E%25E8%25AF%259A%25E5%258B%25BF%25E6%2589%25B0&region=custom:34:1&typeall=1&suball=1&page=",
-			"http://s.weibo.com/weibo/%25E5%2586%259B%25E4%25BA%258B%25E7%25BA%25AA%25E5%25AE%259E&typeall=1&suball=1&timescope=custom:2015-01-01-0:2017-01-05-0&page=",
-			"http://s.weibo.com/weibo/%25E4%25B8%25AD%25E5%259B%25BD%25E4%25B9%258B%25E6%2598%259F&typeall=1&suball=1&timescope=custom:2016-01-01-0:2016-03-01-0&page=",
-			"http://s.weibo.com/weibo/%25E4%25BA%2586&region=custom:34:1000&typeall=1&suball=1&timescope=custom:2016-03-15-8:2016-03-15-23&page="
-	};
+	/**
+	 * 0 æ˜¯ analyzer program_idçš„ç”¨æˆ·
+	 * 1 æ˜¯å¾—åˆ°program_idçš„ç”¨æˆ·å¹¶å†™å…¥mongodb
+	 * 2 æ˜¯ç™»å½•ç”¨æˆ·ï¼Œå¹¶å†™å…¥cookie
+	 * 3è¯»å–æ•°æ®åº“ä¸­çš„èŠ‚ç›®ï¼Œç„¶åè·å–ç”¨æˆ·ä¿¡æ¯
+	 */
+	static int FLAG_ANALYZER_OR_GETUSER = 2;
+	static int[] login_user_set = {28};
+	
 	
 	static Map<String, String> id_link_program;
-	
 	static Set<String> program_set;
 	static int now_index = 0;
-	/**
-	 * 0 ÊÇ analyzer program_idµÄÓÃ»§
-	 * 1 ÊÇµÃµ½program_idµÄÓÃ»§²¢Ğ´Èëmongodb
-	 * 2 ÊÇĞ´cookie
-	 * 3¶ÁÈ¡Êı¾İ¿âÖĞµÄ½ÚÄ¿£¬È»ºó»ñÈ¡ÓÃ»§ĞÅÏ¢
-	 */
-	static int FLAG_ANALYZER_OR_GETUSER = 0;
-	static int program_id = 9;
-	static int begin_index = 0;
-	static int end_index = 3;
 	
 	public static void main(String[] args) {
 		getAlreadyProgram();
@@ -80,14 +53,14 @@ public class AnaylzeTvProgram {
 			
 			getIdLinkProgram();
 			
-			test_login(driver, begin_index, end_index);
+			test_login(driver, login_user_set);
 			while (true ) {
 				change_url(day);
 				day++;
 				if (day > 28) {
 					break;
 				}
-				getProgramUser(driver, begin_index, end_index, 50 ,2, program_url[program_id], program_name[program_id]);
+				getProgramUser(driver, login_user_set, 50 ,2, program_url[program_id], program_name[program_id]);
 				driver.close();
 				driver = SeleniumUtil.getDriver();
 			}
@@ -97,16 +70,14 @@ public class AnaylzeTvProgram {
 			//while (true) {
 				Jdbc.deleteCollection("cookie");
 				WebDriver driver = SeleniumUtil.getDriver();
-				SeleniumUtil.getAndSaveUserCookie(driver, begin_index, end_index);
+				SeleniumUtil.getAndSaveUserCookie(driver, login_user_set);
 				driver.close();
 			//}
 		} else if (FLAG_ANALYZER_OR_GETUSER == 3) {
 			WebDriver driver = SeleniumUtil.getDriver();
 			getIdLinkProgram();
-			test_login(driver, begin_index, end_index);
-			//²âÊÔÍêÖ®ºó±äÎª
-			now_index = end_index;
-			GetMultilProgram(driver, begin_index, end_index);
+			test_login(driver, login_user_set);
+			GetMultilProgram(driver, login_user_set);
 		}
 		System.exit(0);
 	}
@@ -122,11 +93,10 @@ public class AnaylzeTvProgram {
 		}
 	}
 
-	private static void GetMultilProgram(WebDriver driver, int begin_index2,
-			int end_index2) {
+	private static void GetMultilProgram(WebDriver driver, int[] user_ids) {
 		List<String> programs = getProgram();
 		for (int i = 0; i < programs.size(); i++) {
-			//ÓÃÒ»´ÎË¢ĞÂÈ·¶¨£¬Ê±¼äÇø¼ä£¬Ò²¾ÍÊÇÈ·¶¨url
+			//ç”¨ä¸€æ¬¡åˆ·æ–°ç¡®å®šï¼Œæ—¶é—´åŒºé—´ï¼Œä¹Ÿå°±æ˜¯ç¡®å®šurl
 			String p_name = programs.get(i);
 			System.out.println("now program is :" + p_name);
 			String p_url = "http://s.weibo.com/weibo/" + 
@@ -142,17 +112,17 @@ public class AnaylzeTvProgram {
 				System.out.println("list size = " + lists.size());
 				page_num = lists.size();
 			} else {
-				//Èç¹û
+				//å¦‚æœ
 				//continue;
 				page_num = 10;
-				System.out.println(p_name + "µÚÒ»Ò³Ã»ÓĞ¼ÓÔØ³öÀ´");
+				System.out.println(p_name + "ç¬¬ä¸€é¡µæ²¡æœ‰åŠ è½½å‡ºæ¥");
 			}
 			
 			int one_step = (page_num > 10) ? page_num / 10 : 1;
 			if (one_step == 1) {
 				page_num = Math.min(page_num, 10);
 			}
-			getProgramUser(driver, begin_index2, end_index2, page_num, one_step, p_url, p_name);
+			getProgramUser(driver, user_ids, page_num, one_step, p_url, p_name);
 			driver.manage().timeouts().pageLoadTimeout(10000, TimeUnit.SECONDS);
 			//driver.close();
 			//Sleep.sleep(500);
@@ -161,7 +131,7 @@ public class AnaylzeTvProgram {
 	}
 
 	/**
-	 * µÃµ½ĞèÒª×¥È¡µÄµçÊÓ½ÚÄ¿
+	 * å¾—åˆ°éœ€è¦æŠ“å–çš„ç”µè§†èŠ‚ç›®
 	 * @return
 	 */
 	private static List<String> getProgram() {
@@ -176,7 +146,7 @@ public class AnaylzeTvProgram {
 	}
 
 	/**
-	 * ¼ÓÔØuid Óë  program_name
+	 * åŠ è½½uid ä¸  program_name
 	 */
 	private static void getIdLinkProgram() {
 		id_link_program = new HashMap<String, String>();
@@ -259,8 +229,7 @@ public class AnaylzeTvProgram {
 		
 	}
 	
-	public static void getProgramUser(WebDriver driver, int begin_index2,
-									  int end_index2, int page_num, int one_step,
+	public static void getProgramUser(WebDriver driver, int[] user_ids, int page_num, int one_step,
 									  String p_url, String p_name) {
 		Login login = new Login();
 		int tmp_cnt = 0;
@@ -269,15 +238,15 @@ public class AnaylzeTvProgram {
 			tmp_cnt++;
 			if (tmp_cnt % 5 == 0) {
 				now_index++;
-				if (now_index > end_index2) {
-					now_index = begin_index2;
+				if (now_index >= user_ids.length) {
+					now_index = 0;
 				}
-				login.switchLogin(driver, String.valueOf(now_index));
+				login.switchLogin(driver, String.valueOf(user_ids[now_index]));
 			}
 			
 			Sleep.sleep(10000);
 			
-			if (getOnePageUser(i, driver, p_url, p_name) == false) {//ÔÚ×îºóÒ»¸öµÄÊ±ºòÍêÈ«¼ÓÔØ¡£
+			if (getOnePageUser(i, driver, p_url, p_name) == false) {//åœ¨æœ€åä¸€ä¸ªçš„æ—¶å€™å®Œå…¨åŠ è½½ã€‚
 				break;
 			}
 		}
@@ -339,14 +308,16 @@ public class AnaylzeTvProgram {
 		return true;
 	}
 	
-	private static void test_login(WebDriver driver, int b, int d) {
+	private static void test_login(WebDriver driver, int []user_ids) {
 		LoginUsersManage manage = new LoginUsersManage();
 		Login login = new Login();
 		driver.get("http://weibo.com/login.php");
 		
-		for (int i = b; i <= d; i++) {
-			if (login.switchLogin(driver, String.valueOf(i)) ) {
-				System.out.println("ÇĞ»»ÓÃ»§" + String.valueOf(i) + "³É¹¦");
+		for (int i =0; i <= user_ids.length; i++) {
+			int user_id = user_ids[i];
+			now_index = i;
+			if (login.switchLogin(driver, String.valueOf(user_id)) ) {
+				System.out.println("åˆ‡æ¢ç”¨æˆ·" + String.valueOf(user_id) + "æˆåŠŸ");
 			}
 		}
 	}
@@ -360,7 +331,33 @@ public class AnaylzeTvProgram {
 			e.printStackTrace();
 		}
 	}
+	
+	static String [] program_name = {
+		"starroad_user",//0
+		"happycamp_user",//1
+		"sanshensanshi_user",//2
+		"xingjingduizhang_user",//3
+		"æˆ‘æ˜¯æ­Œæ‰‹",//4
+		"NBA",//5
+		"éè¯šå‹¿æ‰°",//6
+		"å†›äº‹è®°å®",//7
+		"ä¸­å›½ä¹‹æ˜Ÿ",//8
+		"éšæœºæŠ½æ ·",//9
+	};
 
+	static String [] program_url = {
+			"http://s.weibo.com/weibo/%25E6%2598%259F%25E5%2585%2589%25E5%25A4%25A7%25E9%2581%2593&region=custom:34:1000&typeall=1&suball=1&page=",
+			"http://s.weibo.com/weibo/%25E5%25BF%25AB%25E4%25B9%2590%25E5%25A4%25A7%25E6%259C%25AC%25E8%2590%25A5&region=custom:34:1&typeall=1&suball=1&page=",
+			"http://s.weibo.com/weibo/%25E4%25B8%2589%25E7%2594%259F%25E4%25B8%2589%25E4%25B8%2596&region=custom:34:1&typeall=1&suball=1&timescope=custom:2016-02-01-0:2017-02-27-4&page=",
+			"http://s.weibo.com/weibo/%25E5%2588%2591%25E8%25AD%25A6%25E9%2598%259F%25E9%2595%25BF&b=1&page=",
+			"http://s.weibo.com/weibo/%25E6%2588%2591%25E6%2598%25AF%25E6%25AD%258C%25E6%2589%258B&region=custom:34:1&typeall=1&suball=1&timescope=custom:2016-02-02-1:2017-02-28-0&page=",
+			"http://s.weibo.com/weibo/NBA&region=custom:34:1&typeall=1&suball=1&timescope=custom:2016-01-06-4:2017-02-28-0&page=",
+			"http://s.weibo.com/weibo/%25E9%259D%259E%25E8%25AF%259A%25E5%258B%25BF%25E6%2589%25B0&region=custom:34:1&typeall=1&suball=1&page=",
+			"http://s.weibo.com/weibo/%25E5%2586%259B%25E4%25BA%258B%25E7%25BA%25AA%25E5%25AE%259E&typeall=1&suball=1&timescope=custom:2015-01-01-0:2017-01-05-0&page=",
+			"http://s.weibo.com/weibo/%25E4%25B8%25AD%25E5%259B%25BD%25E4%25B9%258B%25E6%2598%259F&typeall=1&suball=1&timescope=custom:2016-01-01-0:2016-03-01-0&page=",
+			"http://s.weibo.com/weibo/%25E4%25BA%2586&region=custom:34:1000&typeall=1&suball=1&timescope=custom:2016-03-15-8:2016-03-15-23&page="
+	};
+	static int program_id = 9;
 }
 
 class ValueCmp implements 
@@ -371,3 +368,5 @@ class ValueCmp implements
 		return o1.getValue().compareTo(o2.getValue());
 	}
 }
+
+

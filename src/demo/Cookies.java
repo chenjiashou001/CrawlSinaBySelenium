@@ -29,8 +29,8 @@ public class Cookies {
     public static void addCookies() {
 		System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
 		ChromeOptions option = new ChromeOptions(); 
-    	option.addArguments("-test-type"); //²âÊÔÄ£Ê½£¬¶¥²¿¾¯¸æºöÂÔ
-    	option.addArguments("-start-maximized");//×î´ó»¯
+    	option.addArguments("-test-type"); //æµ‹è¯•æ¨¡å¼ï¼Œé¡¶éƒ¨è­¦å‘Šå¿½ç•¥
+    	option.addArguments("-start-maximized");//æœ€å¤§åŒ–
         WebDriver driver = new ChromeDriver(option);
         
         driver.get("http://www.zhihu.com/#signin");
@@ -81,7 +81,7 @@ public class Cookies {
     }	
 	
     /**
-     * µÃµ½WebDriver
+     * å¾—åˆ°WebDriver
      * @return
      */
     public static WebDriver create() {
@@ -101,7 +101,7 @@ public class Cookies {
     
     public static void main(String[] args) {
 		addCookies();
-		//WindowsUtils.tryToKillByName("chrome.exe");//¹Ø±Õä¯ÀÀÆ÷
+		//WindowsUtils.tryToKillByName("chrome.exe");//å…³é—­æµè§ˆå™¨
         //WindowsUtils.getProgramFilesPath();
         WebDriver driver = create();
         
@@ -143,5 +143,6 @@ public class Cookies {
 
         driver.get("http://www.zhihu.com/");
 	}
-    //¹ØÓÚCOOKIESµÄ¶ÁĞ´ ·â×°Ò»ÏÂ
+    //å…³äºCOOKIESçš„è¯»å†™ å°è£…ä¸€ä¸‹
 }
+

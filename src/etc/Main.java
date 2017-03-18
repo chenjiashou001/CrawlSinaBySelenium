@@ -59,29 +59,29 @@ public class Main {
     	/*
     	System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
     	WebDriver dr = new ChromeDriver();  
-        dr.get("http://www.baidu.com"); //´ò¿ªÊ×Ò³  
-        //dr.manage().window().maximize();    //×î´ó»¯  
+        dr.get("http://www.baidu.com"); //æ‰“å¼€é¦–é¡µ  
+        //dr.manage().window().maximize();    //æœ€å¤§åŒ–  
         //Thread.sleep(3000);  
         //dr.quit();
         System.out.println("page is " + dr.getTitle());
-     // Í¨¹ı id ÕÒµ½ input µÄ DOM  
+     // é€šè¿‡ id æ‰¾åˆ° input çš„ DOM  
         WebElement element =dr.findElement(By.id("s_ipt"));  
-        // ÊäÈë¹Ø¼ü×Ö  
+        // è¾“å…¥å…³é”®å­—  
         element.sendKeys("zTree");  
-        // Ìá½» input ËùÔÚµÄ form  
+        // æäº¤ input æ‰€åœ¨çš„ form  
         element.submit();  
 
-        // ÏÔÊ¾ËÑË÷½á¹ûÒ³ÃæµÄ title  
+        // æ˜¾ç¤ºæœç´¢ç»“æœé¡µé¢çš„ title  
         System.out.println(" Page title is: " +dr.getTitle());  
-        // ¹Ø±Õä¯ÀÀÆ÷  
+        // å…³é—­æµè§ˆå™¨  
         dr.quit();  
-        // ¹Ø±Õ ChromeDriver ½Ó¿Ú
+        // å…³é—­ ChromeDriver æ¥å£
          */  
     	System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
     	ChromeOptions option = new ChromeOptions(); 
     	option.addArguments("-test-type"); 
     	option.addArguments("-start-maximized");
-    	//½ûÖ¹¼ÓÔØÍ¼Æ¬
+    	//ç¦æ­¢åŠ è½½å›¾ç‰‡
     	Map<String, Object> prefs = new HashMap<String, Object>();
     	prefs.put("profile.managed_default_content_settings.images", 2);
     	option.setExperimentalOption("prefs", prefs);
@@ -108,17 +108,17 @@ public class Main {
         
         rand_sleep(random_class);
         
-        //µ½weibo.cnÖĞ
+        //åˆ°weibo.cnä¸­
         //driver.get("http://weibo.cn");
         
-        //»ñÈ¡Ò»¶Ñ»îÔ¾µÄÓÃ»§
+        //è·å–ä¸€å †æ´»è·ƒçš„ç”¨æˆ·
         //driver.get("http://weibo.com/1291477752/BDp8kFbfW?type=comment#_rnd1486711524693");
         
         //driver.get("http://weibo.com/1291477752/E1qYW4dds?type=comment");
         driver.get("http://weibo.com/1259110474/DaOQmzyuG?type=comment#_rnd1486719451347");
         rand_sleep(random_class);
         
-        //ÕÒÆÀÂÛ·ÛË¿
+        //æ‰¾è¯„è®ºç²‰ä¸
         while (true) {
 	        List<WebElement> comment_users = driver.findElements(By.xpath("//*[@ucardconf='type=1']"));
 	        System.out.println(comment_users.size());
@@ -128,7 +128,7 @@ public class Main {
 	        }
 	        List<WebElement> next_btn = driver.findElements(By.xpath("//*[@class='page next S_txt1 S_line1']"));
 	        if (next_btn.size() == 0) {
-	        	System.out.println("Ã»ÓĞ·­Ò³£¬Ìø³ö!");
+	        	System.out.println("æ²¡æœ‰ç¿»é¡µï¼Œè·³å‡º!");
 	        	break;
 	        }
 	        next_btn.get(0).click();
@@ -138,25 +138,25 @@ public class Main {
         //rand_sleep(random_class);
         
         
-        //ÕÒºÃÓÑ
+        //æ‰¾å¥½å‹
         List<WebElement> fans = driver.findElements(By.xpath("//*[@bpfilter='page_frame']"));
         System.out.println(fans.size());
         fans.get(4).click();
         rand_sleep(random_class);
         
-        String currentWindow = driver.getWindowHandle();// »ñÈ¡µ±Ç°´°¿Ú¾ä±ú  
+        String currentWindow = driver.getWindowHandle();// è·å–å½“å‰çª—å£å¥æŸ„  
         System.out.println("curent = " + currentWindow);
         
-        //½øÈëºÃÓÑÒ³Ãæ
+        //è¿›å…¥å¥½å‹é¡µé¢
         List<WebElement> choicefan = driver.findElements(By.xpath("//*[@class='mod_pic']"));
         System.out.println(choicefan.size());    
         choicefan.get(0).click();
         rand_sleep(random_class);
         
-        //´°¿ÚÎÊÌâ
+        //çª—å£é—®é¢˜
         
         WebDriver new_dirver = null;
-        Set<String> handles = driver.getWindowHandles();// »ñÈ¡ËùÓĞ´°¿Ú¾ä±ú
+        Set<String> handles = driver.getWindowHandles();// è·å–æ‰€æœ‰çª—å£å¥æŸ„
         List<String> it = new ArrayList<String>(handles);
         
         System.out.println("set siez = " + handles.size());
@@ -168,18 +168,18 @@ public class Main {
 //        while (it.hasNext()) {
 //        	System.out.println("now = " + it.next());
 //            if (currentWindow == it.next()) {  
-//                continue;// Ìø³ö±¾´ÎÑ­»·£¬¼ÌĞøÏÂ¸öÑ­»·  
+//                continue;// è·³å‡ºæœ¬æ¬¡å¾ªç¯ï¼Œç»§ç»­ä¸‹ä¸ªå¾ªç¯  
 //            }  
 //            try {  
-//                new_driver = driver.switchTo().window(it.next());// ÇĞ»»µ½ĞÂ´°¿Ú  
+//                new_driver = driver.switchTo().window(it.next());// åˆ‡æ¢åˆ°æ–°çª—å£  
 //                
 //            } catch (Exception e) {  
 //                  
 //            }  
-//            // window.close();//¹Ø±Õµ±Ç°½¹µãËùÔÚµÄ´°¿Ú  
+//            // window.close();//å…³é—­å½“å‰ç„¦ç‚¹æ‰€åœ¨çš„çª—å£  
 //        } 
         
-        //µã»÷²é¿´¸ü¶à£¬ ²é¿´±êÇ©
+        //ç‚¹å‡»æŸ¥çœ‹æ›´å¤šï¼Œ æŸ¥çœ‹æ ‡ç­¾
         List<WebElement> chickmore = driver.findElements(By.xpath("//*[@class='WB_cardmore S_txt1 S_line1 clearfix']"));
         System.out.println(chickmore.size());
         if (chickmore.size() != 0) {
@@ -190,7 +190,7 @@ public class Main {
         }
         rand_sleep(random_class);
         
-        //´òÓ¡±êÇ©
+        //æ‰“å°æ ‡ç­¾
         List<WebElement> tags = driver.findElements(By.xpath("//*[@node-type='tag']"));
         System.out.println(tags.size());    
         for (int i = 0; i < tags.size(); i++) {
@@ -202,11 +202,11 @@ public class Main {
         
         
         /**
-        //ÍøÖ·£¨ÊÖ»ú°æµÄĞÂÀËÎ¢²©£¬ÒòÎªÕâ¸öÍøÕ¾µÇÂ¼²»ÒªÑéÖ¤Âë£©
+        //ç½‘å€ï¼ˆæ‰‹æœºç‰ˆçš„æ–°æµªå¾®åšï¼Œå› ä¸ºè¿™ä¸ªç½‘ç«™ç™»å½•ä¸è¦éªŒè¯ç ï¼‰
         String baseUrl = "https://passport.weibo.cn/signin/login?entry=mweibo&res=wel&wm=3349&r=http%3A%2F%2Fm.weibo.cn%2F";
         driver.get(baseUrl);
         Thread.sleep(3000);
-        //WebElement link1 = driver.findElement(By.linkText("µÇÂ¼"));
+        //WebElement link1 = driver.findElement(By.linkText("ç™»å½•"));
         //link1.click();
         //WebElement list = driver.findElement(By.name("username"));
         //list.sendKeys("690707520@qq.com");
@@ -217,22 +217,22 @@ public class Main {
         //	//submitbut.click();
         //}
         //driver.close();
-        //WebElement login = driver.findElement(By.linkText("µÇÂ¼"));
+        //WebElement login = driver.findElement(By.linkText("ç™»å½•"));
         //login.click();
         driver.findElement(By.id("loginName")).clear();
         driver.findElement(By.id("loginName")).sendKeys("690707520@qq.com");
 
-        //ÕÒµ½ÃûÎª"loginPassword"µÄÔªËØ£¬ÌîĞ´ÃÜÂë
+        //æ‰¾åˆ°åä¸º"loginPassword"çš„å…ƒç´ ï¼Œå¡«å†™å¯†ç 
         driver.findElement(By.id("loginPassword")).clear();
         driver.findElement(By.id("loginPassword")).sendKeys("chenjiashuo001");
 
-        //ÕÒµ½µÇÂ¼°´Å¥£¬µã»÷
+        //æ‰¾åˆ°ç™»å½•æŒ‰é’®ï¼Œç‚¹å‡»
         driver.findElement(By.id("loginAction")).click();
         Thread.sleep(2000);
         
-        //È»ºó¾ÍÊÇÕÒºÃÓÑ
+        //ç„¶åå°±æ˜¯æ‰¾å¥½å‹
         
-        WebElement logDiv = driver.findElement(By.xpath("//*[@data-text='ÎÒ']"));
+        WebElement logDiv = driver.findElement(By.xpath("//*[@data-text='æˆ‘']"));
         logDiv.click();
         Thread.sleep(BASETIME);
         
@@ -242,29 +242,30 @@ public class Main {
         fanbtn.click();
         
         
-        //½øÈëºÃÓÑÒ³Ãæ
+        //è¿›å…¥å¥½å‹é¡µé¢
         Thread.sleep(BASETIME);
         List<WebElement> friends = driver.findElements(By.xpath("//*[@class='card m-panel card28 m-avatar-box']"));
         System.out.println(friends.size());
         WebElement friendbtn = friends.get(0);
         friendbtn.click();
-        //»ñÈ¡Î¢²©ÄÚÈİ
+        //è·å–å¾®åšå†…å®¹
         Thread.sleep(BASETIME);
         List<WebElement> texts = driver.findElements(By.xpath("//*[@class='weibo-text']"));
         for (int i = 0; i < texts.size(); i++) {
         	System.out.println(texts.get(i).getText());
         }
         
-        //»ñÈ¡cookies
+        //è·å–cookies
         Set<Cookie> cookies = driver.manage().getCookies();
         String cookieStr = "";
         for (Cookie cookie : cookies) {
         	cookieStr += cookie.getName() + "=" + cookie.getValue() + "; ";
         }
-        //²»¹ıÒ»¸öWebDriverÔÚµÇÂ¼ºó×Ô´øÁËCookiesÁË£¬Ö±½Ó´ò¿ªÆäËûµØ·½Ò²ÊÇ¿ÉÒÔµÄ
+        //ä¸è¿‡ä¸€ä¸ªWebDriveråœ¨ç™»å½•åè‡ªå¸¦äº†Cookiesäº†ï¼Œç›´æ¥æ‰“å¼€å…¶ä»–åœ°æ–¹ä¹Ÿæ˜¯å¯ä»¥çš„
         **/
     }
 
     
     
 }  
+

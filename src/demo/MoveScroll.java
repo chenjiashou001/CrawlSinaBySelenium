@@ -15,32 +15,33 @@ public class MoveScroll {
     	WebDriver driver = new ChromeDriver(option);
         driver.get("https://www.hao123.com/");
 		
-		//ÒÆ¶¯µ½ÔªËØelement¶ÔÏóµÄ¡°¶¥¶Ë¡±Óëµ±Ç°´°¿ÚµÄ¡°¶¥²¿¡±¶ÔÆë
+		//ç§»åŠ¨åˆ°å…ƒç´ elementå¯¹è±¡çš„â€œé¡¶ç«¯â€ä¸å½“å‰çª—å£çš„â€œé¡¶éƒ¨â€å¯¹é½
 		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
 		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 
-		//ÒÆ¶¯µ½ÔªËØelement¶ÔÏóµÄ¡°µ×¶Ë¡±Óëµ±Ç°´°¿ÚµÄ¡°µ×²¿¡±¶ÔÆë
+		//ç§»åŠ¨åˆ°å…ƒç´ elementå¯¹è±¡çš„â€œåº•ç«¯â€ä¸å½“å‰çª—å£çš„â€œåº•éƒ¨â€å¯¹é½
 		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(false);", element);
 
-		//ÒÆ¶¯µ½Ò³Ãæ×îµ×²¿
+		//ç§»åŠ¨åˆ°é¡µé¢æœ€åº•éƒ¨
 		//((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
 		
 		Thread.sleep(3000);
 		
-		//ÒÆ¶¯µ½Ö¸¶¨µÄ×ø±ê(Ïà¶Ôµ±Ç°µÄ×ø±êÒÆ¶¯)
+		//ç§»åŠ¨åˆ°æŒ‡å®šçš„åæ ‡(ç›¸å¯¹å½“å‰çš„åæ ‡ç§»åŠ¨)
 		((JavascriptExecutor) driver).executeScript("window.scrollBy(0, 700)");
 		Thread.sleep(3000);
-		//½áºÏÉÏÃæµÄscrollByÓï¾ä£¬Ïàµ±ÓÚÒÆ¶¯µ½700+800=1600ÏñËØÎ»ÖÃ
+		//ç»“åˆä¸Šé¢çš„scrollByè¯­å¥ï¼Œç›¸å½“äºç§»åŠ¨åˆ°700+800=1600åƒç´ ä½ç½®
 		((JavascriptExecutor) driver).executeScript("window.scrollBy(0, 800)");
 		
 		Thread.sleep(3000);
-		//ÒÆ¶¯µ½´°¿Ú¾ø¶ÔÎ»ÖÃ×ø±ê£¬ÈçÏÂÒÆ¶¯µ½×İ×ø±ê1600ÏñËØÎ»ÖÃ
+		//ç§»åŠ¨åˆ°çª—å£ç»å¯¹ä½ç½®åæ ‡ï¼Œå¦‚ä¸‹ç§»åŠ¨åˆ°çºµåæ ‡1600åƒç´ ä½ç½®
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 100)");
 		Thread.sleep(3000);
-		//½áºÏÉÏÃæµÄscrollToÓï¾ä£¬ÈÔÈ»ÒÆ¶¯µ½×İ×ø±ê1200ÏñËØÎ»ÖÃ
+		//ç»“åˆä¸Šé¢çš„scrollToè¯­å¥ï¼Œä»ç„¶ç§»åŠ¨åˆ°çºµåæ ‡1200åƒç´ ä½ç½®
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 1200)");
 		
 		driver.close();
 	}
 
 }
+

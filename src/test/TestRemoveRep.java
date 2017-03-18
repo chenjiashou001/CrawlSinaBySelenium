@@ -22,7 +22,7 @@ public class TestRemoveRep {
 //            BufferedReader br=new BufferedReader(new FileReader(file));            
 //            while((tempstr=br.readLine())!=null)
 //                sb.append(tempstr);    
-            //¡Ì“ª÷÷∂¡»°∑Ω Ω
+            //Âè¶‰∏ÄÁßçËØªÂèñÊñπÂºè
             FileInputStream fis=new FileInputStream(file);
             BufferedReader br=new BufferedReader(new InputStreamReader(fis));
             while((tempstr=br.readLine())!=null){
@@ -40,3 +40,4 @@ public class TestRemoveRep {
 	}
 
 }
+

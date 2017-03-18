@@ -40,7 +40,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 /**
- * ¹ÜÀíµÇÂ¼µÄÀà
+ * ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
  * @author chenjiashou
  *
  */
@@ -48,26 +48,26 @@ public class Login {
 	final int MAX_TRY_TIME = 10;
 	
 	/**
-	 * ÊäÈëµÇÂ¼ÓÃ»§ÐÅÏ¢ºÍÃ»ÓÐcookieµÄdriver
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½Ã»ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ã»ï¿½ï¿½cookieï¿½ï¿½driver
 	 * @param username
 	 * @param password
 	 * @param safe_level
 	 * @param driver
-	 * @return ·µ»Ø´øÓÐcookieÐÅÏ¢µÄdriver
+	 * @return ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½cookieï¿½ï¿½Ï¢ï¿½ï¿½driver
 	 */
 	public boolean login(String username, String password, int safe_level, WebDriver driver) {
 		int try_cnt = 0;
 		driver.manage().timeouts().pageLoadTimeout(1000, TimeUnit.SECONDS);
 		while(try_cnt < MAX_TRY_TIME) {
 			try_cnt++;
-			System.out.println("logn:" + try_cnt);
+//			System.out.println("logn:" + try_cnt);
 			sleep(500);
 			String tmpcookie = null;
 			boolean exception_flag = false;
 			try{
 				tmpcookie = concatCookie(driver);
 			} catch(Exception e) {
-				System.out.println("concatCookieÒì³£");
+//				System.out.println("concatCookieï¿½ì³£");
 				exception_flag = true;
 				//continue;
 			}
@@ -78,17 +78,17 @@ public class Login {
 					driver.manage().deleteAllCookies();
 					//driver.get("http://weibo.com/login.php");
 				} catch(Exception e) {
-					//System.out.println("concatcookieÒì³££¬ÇÒlogin³¬Ê±");
+					//System.out.println("concatcookieï¿½ì³£ï¿½ï¿½ï¿½ï¿½loginï¿½ï¿½Ê±");
 					driver.close();
 					driver = SeleniumUtil.getDriver();
-					System.out.println("concatCookieÒì³£ ¼ÓÔØ³¬Ê±");
+//					System.out.println("concatCookieï¿½ì³£ ï¿½ï¿½ï¿½Ø³ï¿½Ê±");
 				}
 				continue;
 			}
 			
-			System.out.println("cookie = " + tmpcookie);
+//			System.out.println("cookie = " + tmpcookie);
 			if (tmpcookie != null && tmpcookie.indexOf("SSOLoginState") != -1) {
-				return true;//³É¹¦µÇÂ¼
+				return true;//ï¿½É¹ï¿½ï¿½ï¿½Â¼
 			}
 				//if (!WaitWebLoad.load(driver, new WaitLogin())) {
 		        //	return false;
@@ -97,7 +97,7 @@ public class Login {
 					
 					driver.get("http://weibo.com/login.php");
 				} catch(Exception e) {
-					System.out.println("pro1");
+//					System.out.println("pro1");
 				}
 				sleep(1000);
 				
@@ -119,10 +119,10 @@ public class Login {
 			        elms = driver.findElements(By.xpath("//*[@class='W_btn_a btn_32px']"));
 			        verify_img = driver.findElements(By.xpath("//*[@node-type='verifycode_image']"));
 		        } catch(Exception e) {
-		        	System.out.println("Ò³ÃæÔªËØ¶¨Î»Òì³£");
+//		        	System.out.println("Ò³ï¿½ï¿½Ôªï¿½Ø¶ï¿½Î»ï¿½ì³£");
 		        	continue;
 		        }
-	        	if (verify_img.size() != 0 && !verify_img.get(0).getAttribute("src").equals("about:blank")) {//ÅÐ¶ÏÑéÖ¤ÂëÊÇ·ñË¢³öÀ´
+	        	if (verify_img.size() != 0 && !verify_img.get(0).getAttribute("src").equals("about:blank")) {//ï¿½Ð¶ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½Ç·ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½
 	        		String src = verify_img.get(0).getAttribute("src");
 	        		try {
 	        		String cookie = concatCookie(driver);
@@ -137,16 +137,16 @@ public class Login {
 	        		String userInput = new CaptchaFrame(img).getUserInput();
 	        		List<WebElement> verify_input = driver.findElements(By.xpath("//*[@node-type='verifycode']"));
 	        		if (verify_input.size() == 0) {
-	        			System.out.println("Ã»ÓÐÕÒµ½ÑéÖ¤ÂëÊäÈë¿ò");
+//	        			System.out.println("Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 	        			continue;
 	        		}
 	                verify_input.get(0).sendKeys(userInput);
 	                } catch (Exception e) {
-	                	System.out.println("pro2");
+//	                	System.out.println("pro2");
 	                }
 	        	}
 	        	if (elms.size() == 0) {
-	        		System.out.println("µÇÂ¼°´Å¥Ã»ÓÐ¼ÓÔØ³öÀ´");
+//	        		System.out.println("ï¿½ï¿½Â¼ï¿½ï¿½Å¥Ã»ï¿½Ð¼ï¿½ï¿½Ø³ï¿½ï¿½ï¿½");
 	        		continue;
 	        	}
 	        	sleep(500);
@@ -159,7 +159,7 @@ public class Login {
 		        	//return true;
 		        //}
 	        } catch (Exception e) {
-				System.out.println("pro3");
+//				System.out.println("pro3");
 				//e.printStackTrace();
 			}
         }
@@ -193,7 +193,7 @@ public class Login {
         }
 
         public String getUserInput() {
-            frame = new JFrame("ÊäÈëÑéÖ¤Âë");
+            frame = new JFrame("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½");
             final int imgWidth = img.getWidth();
             final int imgHeight = img.getHeight();
             int width = imgWidth * 2 + inputWidth * 2;
@@ -216,7 +216,7 @@ public class Login {
             input = new JTextField(6);
             input.setBounds(imgWidth * 2, 0, inputWidth, imgHeight * 2);
             panel.add(input);
-            JButton btn = new JButton("µÇÂ¼");
+            JButton btn = new JButton("ï¿½ï¿½Â¼");
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -243,7 +243,7 @@ public class Login {
 	
 	
 	/**
-	 * ÔÚÓÐcookieµÄÇé¿öÏÂ£¬ÇÐ»»µÇÂ¼ÓÃ»§£¬·ÀÖ¹ÕËºÅ±»·â¡£
+	 * ï¿½ï¿½ï¿½ï¿½cookieï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½Ð»ï¿½ï¿½ï¿½Â¼ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ËºÅ±ï¿½ï¿½â¡£
 	 * @param driver
 	 * @param login_name
 	 * @return
@@ -256,7 +256,7 @@ public class Login {
 				driver.get("http://weibo.com/login.php");
 				break;
 			} catch (Exception e) {
-				System.out.println("loginÒ³Ãæ¼ÓÔØÊ±¼ä¹ý³¤");
+				System.out.println("loginÒ³ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½");
 			}
 		}
 		//if (!WaitWebLoad.load(driver, new WaitLogin())) {
@@ -272,7 +272,7 @@ public class Login {
 				driver.get("http://weibo.com/login.php");
 				return true;
 			} catch (Exception e) {
-				System.out.println("¼ÓÔØÊ±¼ä¹ý³¤");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½");
 				e.printStackTrace();
 				//if (!WaitWebLoad.load(driver, new WaitSuccessLogin())) {
 		        //	continue;
@@ -286,7 +286,7 @@ public class Login {
 	}
 	
 	/**
-	 * Ïß³ÌÐÝÃßsÃë
+	 * ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
 	 * @param s
 	 */
 	private void sleep(int s) {

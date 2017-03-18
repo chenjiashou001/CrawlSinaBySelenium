@@ -14,20 +14,20 @@ import com.mongodb.client.MongoDatabase;
 public class Mongodb{
 	public static void main( String args[] ){
 	      try{   
-	         // Á¬½Óµ½ mongodb ·şÎñ
+	         // è¿æ¥åˆ° mongodb æœåŠ¡
 	         MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
 	         
-	         // Á¬½Óµ½Êı¾İ¿â
+	         // è¿æ¥åˆ°æ•°æ®åº“
 	         MongoDatabase mongoDatabase = mongoClient.getDatabase("mycol");  
 	         System.out.println("Connect to database successfully");
 	         
 	         MongoCollection<Document> collection = mongoDatabase.getCollection("test");
-	         System.out.println("¼¯ºÏ test Ñ¡Ôñ³É¹¦");
-	         //²åÈëÎÄµµ  
+	         System.out.println("é›†åˆ test é€‰æ‹©æˆåŠŸ");
+	         //æ’å…¥æ–‡æ¡£  
 	         /** 
-	         * 1. ´´½¨ÎÄµµ org.bson.Document ²ÎÊıÎªkey-valueµÄ¸ñÊ½ 
-	         * 2. ´´½¨ÎÄµµ¼¯ºÏList<Document> 
-	         * 3. ½«ÎÄµµ¼¯ºÏ²åÈëÊı¾İ¿â¼¯ºÏÖĞ mongoCollection.insertMany(List<Document>) ²åÈëµ¥¸öÎÄµµ¿ÉÒÔÓÃ mongoCollection.insertOne(Document) 
+	         * 1. åˆ›å»ºæ–‡æ¡£ org.bson.Document å‚æ•°ä¸ºkey-valueçš„æ ¼å¼ 
+	         * 2. åˆ›å»ºæ–‡æ¡£é›†åˆList<Document> 
+	         * 3. å°†æ–‡æ¡£é›†åˆæ’å…¥æ•°æ®åº“é›†åˆä¸­ mongoCollection.insertMany(List<Document>) æ’å…¥å•ä¸ªæ–‡æ¡£å¯ä»¥ç”¨ mongoCollection.insertOne(Document) 
 	         * */
 	         Document document = new Document("title", "MongoDB").  
 	         append("description", "database").  
@@ -37,7 +37,7 @@ public class Mongodb{
 	         List<Document> documents = new ArrayList<Document>();  
 	         documents.add(document);  
 	         collection.insertMany(documents);  
-	         System.out.println("ÎÄµµ²åÈë³É¹¦"); 
+	         System.out.println("æ–‡æ¡£æ’å…¥æˆåŠŸ"); 
 	         
 	         FindIterable<Document> findIterable = collection.find();  
 	         MongoCursor<Document> mongoCursor = findIterable.iterator();  
@@ -49,3 +49,4 @@ public class Mongodb{
 	      }
 	   }
 }
+

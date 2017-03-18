@@ -15,7 +15,7 @@ import org.openqa.selenium.WebElement;
 import sleep.Sleep;
 
 /**
- * ÎªÓÃ»§Ìí¼Ó·ÛË¿
+ * add follow star
  * @author chenjiashou
  *
  */
@@ -26,15 +26,14 @@ public class AddFollowStar {
 	static List<Integer> program_watchtime;
 	static Map<String, String> program_id;
 	
-	static int begin_user_index = 10;
-	static int end_user_index = 10;
+	static int[] login_user_set = {0,1};
 	
 	/**
-	 * ¶Ô×Ö·û´®½øĞĞ¶ş´Î±àÂë
+	 * two encode to get search url
 	 * @param tv_name
 	 * @return
 	 */
-	static String getSearchUrl(String program_name) {
+	public static String getSearchUrl(String program_name) {
 		String encode_str = UrlUtil.getURLEncoderString(program_name);
 		encode_str = UrlUtil.getURLEncoderString(encode_str);
 		return "http://s.weibo.com/user/&nickname=" + encode_str + "&auth=org_vip";
@@ -42,20 +41,19 @@ public class AddFollowStar {
 	
 	public static void main(String[] args) {
 		getProgramInfo();
-		StartAddFollow(begin_user_index, end_user_index);
+		StartAddFollow(login_user_set);
 		System.exit(0);
 	}
 
-	private static void StartAddFollow(int beg_id, int end_id) {
+	private static void StartAddFollow(int [] user_ids) {
 		program_id = new HashMap<String, String>();
-		for (int i = beg_id; i <= end_id; i++) {
-			WebDriver driver = SeleniumUtil.getDriver();
-			SeleniumUtil.getAndSaveUserCookie(driver, i, i);
-			
+		Login login = new Login();
+		WebDriver driver = SeleniumUtil.getDriver();
+		SeleniumUtil.getAndSaveUserCookie(driver, user_ids);
+		for (int i = 0; i < user_ids.length; i++) {
 			sleep(5000);
-			
+			login.switchLogin(driver, String.valueOf(user_ids[i]));
 			OneUserAddFollow(driver);
-			driver.close();
 		}
 	}
 
@@ -111,7 +109,7 @@ public class AddFollowStar {
 					//saveProgramId(i, uid, name);
 					buttons.get(0).click();
 					sleep(10000);
-					//ÕâÀï»¹Òª´¦Àí
+					
 					List<WebElement> submits = driver.findElements(By.xpath("//*[@action-type='submit']"));
 					if (submits.size() != 0) {
 						submits.get(0).click();
@@ -124,7 +122,7 @@ public class AddFollowStar {
 		}
 	}
 
-	private static boolean is_not_match_programame(String name,
+	public static boolean is_not_match_programame(String name,
 			String search_name) {
 		if (null == name || name.indexOf(search_name) == -1) {
 			return true;
@@ -175,33 +173,17 @@ public class AddFollowStar {
 	private static boolean is_in_blackprogram(String temp_str) {
 		String black_program[] = {
 			"null",
-			"½áÊø",
-			"µçÓ°",
+			"ç»“æŸ",
+			"ç”µå½±",
 		};
-		if (is_word_in_array(temp_str, black_program)) {
+		if (ComUtil.isStringInArray(temp_str, black_program)) {
 			return true;
 		}
 		return false;
 	}
 
 	/**
-	 * ÅĞ¶Ïtemp_strÊÇ·ñÔÚÊı×éÖĞ
-	 * @param temp_str
-	 * @param black_program
-	 * @return
-	 */
-	private static boolean is_word_in_array(String temp_str,
-			String[] black_program) {
-		for (int i = 0; i < black_program.length; i++) {
-			if (black_program[i].equals(temp_str)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * ¸ñÊ½»¯Ãû×Ö
+	 * æ ¼å¼åŒ–åå­—
 	 * @param temp_str
 	 * @return
 	 */

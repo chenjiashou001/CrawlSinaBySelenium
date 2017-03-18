@@ -13,9 +13,9 @@ public class PersonThroughRiver {
 		int n;
 		List<Integer> times = new ArrayList<Integer>();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("ÇëÊäÈëÓĞ¶àÉÙ¸öÈËÒª¹ıÇÅ:");
+		System.out.println("è¯·è¾“å…¥æœ‰å¤šå°‘ä¸ªäººè¦è¿‡æ¡¥:");
 		n = sc.nextInt();
-		System.out.println("ÇëÊäÈëÃ¿¸ö¹ıÇÅµÄÊ±¼ä£¬¿Õ¸ñ¸ô¿ª");
+		System.out.println("è¯·è¾“å…¥æ¯ä¸ªè¿‡æ¡¥çš„æ—¶é—´ï¼Œç©ºæ ¼éš”å¼€");
 		for (int i = 0; i < n; i++) {
 			int _time;
 			_time = sc.nextInt();
@@ -37,7 +37,7 @@ public class PersonThroughRiver {
 		int cnt = 0;
 		for (int i = (1 << n) - 1; i >= 0; i--) {
 			cnt++;
-			//È»ºó¿ªÊ¼Ëæ»úÑ¡ÔñÁ½¸öÈË
+			//ç„¶åå¼€å§‹éšæœºé€‰æ‹©ä¸¤ä¸ªäºº
 			for (int i1 = 0; i1 < n; i1++) {
 				if (((1 << i1)&i) == 0) {
 					continue;
@@ -47,32 +47,32 @@ public class PersonThroughRiver {
 						continue;
 					}
 					
-					//i1,i2¶¼»¹Ã»¹ıºÓ
-					int j = (((1 << n) - 1)^i)|(1<<i1)|(1<<i2);//ÒÑ¾­¹ıºÓµÄÈË
+					//i1,i2éƒ½è¿˜æ²¡è¿‡æ²³
+					int j = (((1 << n) - 1)^i)|(1<<i1)|(1<<i2);//å·²ç»è¿‡æ²³çš„äºº
 					int time = Math.max(times.get(i1), times.get(i2));
 					if (((1 << i1)|(1 << i2)) == i) {
 						int now_mark = mark[i] + time;
 						if (now_mark < mark[0]) {
 							mark[0] = now_mark;
-							String path = "µÚ" + cnt + "ÂÖ," + (char)('A' + i1) + "," +
-										  (char)('A' + i2) + "Ò»Æğ¹ıºÓ";
+							String path = "ç¬¬" + cnt + "è½®," + (char)('A' + i1) + "," +
+										  (char)('A' + i2) + "ä¸€èµ·è¿‡æ²³";
 							record.set(0, path);
 							int_record.set(0, i);
 						}
 						continue;
 					}
-					int timei = times.get(i1) + times.get(i2);//ÕâÂÖ¹ıºÓµÄÊ±¼äºÍ
+					int timei = times.get(i1) + times.get(i2);//è¿™è½®è¿‡æ²³çš„æ—¶é—´å’Œ
 					for (int j1 = 0; j1 < n; j1++) {
 						if (((1 << j1)&j) == 0) {
 							continue;
 						}
-						if (timei - times.get(j1) > 0) {//Ö»ÓĞÎ´¹ıºÓµÄÊ±¼äºÍ±äĞ¡ÁË£¬²Å´¦Àí
+						if (timei - times.get(j1) > 0) {//åªæœ‰æœªè¿‡æ²³çš„æ—¶é—´å’Œå˜å°äº†ï¼Œæ‰å¤„ç†
 							int lasti = (i^(1<<i1)^(1<<i2))|(1<<j1);
 							int now_mark = mark[i] + time + times.get(j1);
 							if (now_mark < mark[lasti]){
 								mark[lasti] = now_mark;
-								String path = "µÚ" + cnt + "ÂÖ," + (char)('A' + i1) + "," +
-										  (char)('A' + i2) + "Ò»Æğ¹ıºÓ" + "\n\t" + (char)('A' + j1) + "ÄÃ×ÅÊÖµçÍ²·µ»Ø";
+								String path = "ç¬¬" + cnt + "è½®," + (char)('A' + i1) + "," +
+										  (char)('A' + i2) + "ä¸€èµ·è¿‡æ²³" + "\n\t" + (char)('A' + j1) + "æ‹¿ç€æ‰‹ç”µç­’è¿”å›";
 								record.set(lasti, path);
 								int_record.set(lasti, i);
 							}
@@ -83,8 +83,8 @@ public class PersonThroughRiver {
 			}
 		}
 		
-		System.out.println("×î¶Ì¹ıºÓÊ±¼äÎª: " + mark[0]);
-		System.out.println("¾ßÌåµÄ¹ıºÓ·½°¸ÈçÏÂ:");
+		System.out.println("æœ€çŸ­è¿‡æ²³æ—¶é—´ä¸º: " + mark[0]);
+		System.out.println("å…·ä½“çš„è¿‡æ²³æ–¹æ¡ˆå¦‚ä¸‹:");
 		List<String> ans = new ArrayList<String>();
 		int tmp = 0;
 		while(tmp != ((1<<n) - 1)) {
@@ -97,3 +97,4 @@ public class PersonThroughRiver {
 	}
 
 }
+

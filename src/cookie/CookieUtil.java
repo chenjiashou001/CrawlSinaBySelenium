@@ -15,7 +15,7 @@ import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 
 /**
- * cookie ´æ´¢Àà,´æ´¢µ½mongodbÖĞ
+ * cookie ç€›æ¨ºåç»«ï¿½,ç€›æ¨ºåé’ç™¿ongodbæ¶“ï¿½
  * @author chenjiashou
  *
  */
@@ -23,7 +23,7 @@ public class CookieUtil {
 	static final String COOKIE_COLLECITION_NAME = "cookie";
 	
 	/**
-	 * ½«dirverµÄcookieÒÔcookie_nameÃû×Ö´æÈëmongodb
+	 * çå“¾irveré¨åˆ¢ookieæµ î™©ookie_nameéšå¶…ç“§ç€›æ¨ºå†mongodb
 	 * @param cookie_name
 	 * @param driver
 	 * @return
@@ -35,7 +35,7 @@ public class CookieUtil {
 		try{
 			cookieSet = driver.manage().getCookies();
 		} catch(Exception e) {
-			System.out.println("save cookie Òì³£");
+			System.out.println("save cookie å¯®å‚šçˆ¶");
 			return false;
 		}
 		
@@ -48,12 +48,12 @@ public class CookieUtil {
         Document doc = new Document("name", cookie_name);
         doc.append("content", sb.toString());
         Jdbc.insert_doc(COOKIE_COLLECITION_NAME, doc);
-        System.out.println("CookieUtil :" + cookie_name + "Ğ´Èë³É¹¦!");
+        System.out.println("CookieUtil :" + cookie_name + "éæ¬å†é´æ„¬å§›!");
 		return true;
 	}
 	
 	/**
-	 * ½«cookie_nameµÄcookieĞ´ÈëdrivoerÖĞÈ¥
+	 * çå“»ookie_nameé¨åˆ¢ookieéæ¬å†drivoeræ¶“î…å¹“
 	 * @param cookie_name
 	 * @param driver
 	 * @return
@@ -86,7 +86,7 @@ public class CookieUtil {
                  boolean isSecure = new Boolean(str.nextToken()).booleanValue();
                  
                  //System.out.println(domain);
-                 if (domain.indexOf(".tanx.com") != -1) {//Ê²Ã´¹íĞÂÀË
+                 if (domain.indexOf(".tanx.com") != -1) {//æµ ï¿½æ¶”å ¥îƒ—é‚ç‰ˆæ°®
                 	 domain = null;
                  }
                  Cookie ck = new Cookie(name,value,domain,path,expiry,isSecure);
@@ -98,3 +98,5 @@ public class CookieUtil {
 	}
 	
 }
+
+
