@@ -35,7 +35,7 @@ String newline = "\r\n";//windows
 	        File file = new File(path);
 	        if(!file.exists())
 	            file.createNewFile();
-	        FileOutputStream out = new FileOutputStream(file); //true表示追加 
+	        FileOutputStream out = new FileOutputStream(file, true); //true表示追加 
 	        StringBuffer sb = new StringBuffer();
 	        sb.append(str + "\r\n");
 	        out.write(sb.toString().getBytes("utf-8"));//
@@ -246,6 +246,12 @@ String newline = "\r\n";//windows
 		    }   
 		}   
 		return file_paths;
+	}
+	
+	public static void saveDocsToFile(List<Document> docs, String file_path) {
+		for (Document doc : docs) {
+			writeLog(file_path, doc.toJson());
+		}
 	}
 	
 	public static void main(String[] args) {

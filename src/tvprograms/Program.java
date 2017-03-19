@@ -10,8 +10,8 @@ public class Program {
 	String tv_name;
 	String sina_id;//比int大
 	String sina_name;
-	int tv_watch_time;
-	int sina_fans;
+	String tv_watch_time;
+	String sina_fans;
 	List<String> sina_tags;//sina自带的tags
 	List<String> epg_tags;//EPG得出的tags
 	List<String> user_profile_tags;//做用户画像实验得出的tags
@@ -29,18 +29,19 @@ public class Program {
 		tv_name = null;
 		sina_id = null;
 		sina_name = null;
-		tv_watch_time = -1;
-		sina_fans = -1;
+		tv_watch_time = null;
+		sina_fans = null;
 		sina_tags = new ArrayList<String>();
 		epg_tags = new ArrayList<String>();
 		user_profile_tags = new ArrayList<String>();
 	}
 	
 	public void setProgramByDocument(Document doc_program) {
-		tv_name = doc_program.getString("program_name");
-		sina_id = doc_program.getString("uid");
-		sina_name = doc_program.getString("sina_program_name");
-		tv_watch_time =  doc_program.getInteger("watch_time");
+		tv_name = doc_program.getString("tv_name");
+		sina_id = doc_program.getString("sina_id");
+		sina_name = doc_program.getString("sina_name");
+		tv_watch_time =  doc_program.getString("tv_watch_time");
+		sina_fans = doc_program.getString("fans_num");
 	}
 	
 	public void DEBUG() {
@@ -74,16 +75,16 @@ public class Program {
 	public void setSina_name(String sina_name) {
 		this.sina_name = sina_name;
 	}
-	public int getTv_watch_time() {
+	public String getTv_watch_time() {
 		return tv_watch_time;
 	}
-	public void setTv_watch_time(int tv_watch_time) {
+	public void setTv_watch_time(String tv_watch_time) {
 		this.tv_watch_time = tv_watch_time;
 	}
-	public int getSina_fans() {
+	public String getSina_fans() {
 		return sina_fans;
 	}
-	public void setSina_fans(int sina_fans) {
+	public void setSina_fans(String sina_fans) {
 		this.sina_fans = sina_fans;
 	}
 	public List<String> getSina_tags() {

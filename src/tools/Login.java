@@ -1,31 +1,5 @@
 package tools;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
-import javax.imageio.ImageIO;
-
-import cn.edu.hfut.dmic.webcollector.net.HttpRequest;
-import cn.edu.hfut.dmic.webcollector.net.HttpResponse;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.Cookie;
-
-import cookie.CookieUtil;
-import sinaaccount.LoginUsersManage;
-import sleep.WaitWebLoad;
-import sleep.WebLoad;
-
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -34,11 +8,27 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import sinaaccount.LoginUser;
+import sleep.WebLoad;
+import cn.edu.hfut.dmic.webcollector.net.HttpRequest;
+import cn.edu.hfut.dmic.webcollector.net.HttpResponse;
+import cookie.CookieUtil;
 /**
  * �����¼����
  * @author chenjiashou
@@ -46,6 +36,10 @@ import javax.swing.JTextField;
  */
 public class Login {
 	final int MAX_TRY_TIME = 10;
+	
+	public boolean login(LoginUser user, WebDriver driver) {
+		return login(user.getName(), user.getPassword(), user.getSafe_level(), driver);
+	}
 	
 	/**
 	 * �����¼�û���Ϣ��û��cookie��driver

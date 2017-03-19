@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import mongodb.Jdbc;
 
@@ -12,7 +13,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import sinaaccount.LoginUser;
+import sinaaccount.LoginUsersManage;
 import sleep.Sleep;
+import tvprograms.ProgramsUtil;
 
 /**
  * add follow star
@@ -26,7 +30,7 @@ public class AddFollowStar {
 	static List<Integer> program_watchtime;
 	static Map<String, String> program_id;
 	
-	static int[] login_user_set = {0,1};
+	static int[] login_user_set = {1, 2, 3, 4, 5, 27, 28};
 	
 	/**
 	 * two encode to get search url
@@ -49,11 +53,24 @@ public class AddFollowStar {
 		program_id = new HashMap<String, String>();
 		Login login = new Login();
 		WebDriver driver = SeleniumUtil.getDriver();
+		
 		SeleniumUtil.getAndSaveUserCookie(driver, user_ids);
+		
+		LoginUsersManage manage = new LoginUsersManage();
 		for (int i = 0; i < user_ids.length; i++) {
 			sleep(5000);
 			login.switchLogin(driver, String.valueOf(user_ids[i]));
-			OneUserAddFollow(driver);
+			LoginUser user = manage.getUserByIndex(user_ids[i]);
+			if (user.getToday_care_cnt() >= 100) {
+				continue;
+			}
+			List<String> programs = new ArrayList<String>();
+			if (user.getNeed_care_program_set() == null || 
+				user.getNeed_care_program_set().size() == 0) {
+				continue;
+			}
+			programs.addAll(user.getNeed_care_program_set());
+			OneUserAddFollow(driver, programs, user);
 		}
 	}
 
@@ -70,16 +87,19 @@ public class AddFollowStar {
 		Jdbc.insert_doc("program_info", doc);
 	}
 
-	private static void OneUserAddFollow(WebDriver driver) {
-		for (int i = 0; i < need_follow_program.size(); i++) {
-			System.out.println("i =" + i);
-
-			String search_name = need_follow_program.get(i);
+	private static void OneUserAddFollow(WebDriver driver, List<String> programs, LoginUser user) {
+		Set<String> need_care_program_set = user.getNeed_care_program_set();
+		int today_care_cnt = user.getToday_care_cnt();
+		for (int i = 0; i < programs.size(); i++) {
+			String search_name = programs.get(i);
+			System.out.println("searchname =" + search_name);
+			
 			driver.get(getSearchUrl(search_name));
 			sleep(15888);
 			List<WebElement> divs = driver.findElements(By.xpath("//*[@class='list_person clearfix']"));
 			boolean have_find = false;
-			for (int j = 0; j < Math.min(divs.size(), 3); j++) {
+			
+			for (int j = 0; j < Math.min(divs.size(), ProgramsUtil.getProgramChoiseWay(search_name)); j++) {
 				sleep(8233);
 				Sleep.rand_time(5000, 10000);
 				String uid = null;
@@ -104,6 +124,7 @@ public class AddFollowStar {
 				}
 				have_find = true;
 				//follow!
+				
 				List<WebElement> buttons = driver.findElements(By.className("person_adbtn"));
 				if (buttons.size() != 0) {
 					//saveProgramId(i, uid, name);
@@ -116,6 +137,13 @@ public class AddFollowStar {
 					}
 					//sleep(1000000);
 					sleep(5000);
+					need_care_program_set.remove(search_name);
+					today_care_cnt++;
+					user.setNeed_care_program_set(need_care_program_set);
+					user.setToday_care_cnt(today_care_cnt);
+					user.setTotal_need_care_cnt(need_care_program_set.size());
+					Document filter = new Document().append("name", user.getName());
+					Jdbc.UpdateOneByKey_Vaule("loginuser", filter, user.toDoc());
 				}
 				break;
 			}

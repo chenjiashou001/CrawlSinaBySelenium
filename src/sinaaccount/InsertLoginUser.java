@@ -2,14 +2,19 @@ package sinaaccount;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import mongodb.Jdbc;
 
 import org.bson.Document;
 
+import tools.ComUtil;
 import tools.FileUtil;
+import tvprograms.Program;
+import tvprograms.ProgramsUtil;
 
 public class InsertLoginUser {
 	/**
@@ -23,7 +28,7 @@ public class InsertLoginUser {
 	 */
 	static String sina_account[] = {
 		//name  				,careEnough	, safeLevel	,	info	   id
-		"690707520@qq.com		,	1		,		0	,	jiashou",//	0
+		"690707520@qq.com		,	0		,		0	,	jiashou",//	0
 		"kongxiaoyue123@sina.com,	1		,		0	,	xiaoyue",//	1
 		"18654689276			,	1		,		0	,	shengnan",//2
 		"15175245812			,	1		,		0	,	hongxin",//	3
@@ -40,7 +45,7 @@ public class InsertLoginUser {
 		"13873645554			,	1		,		0	,	other",//	14
 		"18874642879			,	1		,		2	,	other",//	15
 		"18374140968			,	1		,		2	,	other",//	16
-		"13469034516			,	1		,		0	,	other",//	17
+		"13469034516			,	1		,		2	,	other",//	17
 		"13517379980			,	1		,		2	,	other",//	18
 		"15116321648			,	1		,		0	,	other",//	19
 		"13617307234			,	0		,		0	,	other",//	20
@@ -60,7 +65,7 @@ public class InsertLoginUser {
 	
 	public static void main(String[] args) {
 		getUserPassword();
-		Jdbc.deleteCollection("loginuser");// clean login_user database
+		//Jdbc.deleteCollection("loginuser");// clean login_user database
 		List<Document> docs = new ArrayList<Document>();
 		for (int i = 0; sina_account[i] != null; i ++) {
 			Document doc = new Document("id", i);
@@ -71,18 +76,37 @@ public class InsertLoginUser {
 			String name  = strs[0];
 			String password = map_name_password.get(name);
 			String careEnough = strs[1];
-			String safeLevel = strs[2];
+			int safeLevel = Integer.parseInt(strs[2]);
 			String info = strs[3];
 			
 			doc.append("id", 		id);
 			doc.append("name", 		name);
 			doc.append("password", 	password);
-			doc.append("careEnough",careEnough);
-			doc.append("safeLevel", safeLevel);
+			doc.append("careenough",careEnough);
+			doc.append("safelevel", safeLevel);
 			doc.append("info", 		info);
+			doc.append("today_care_cnt", 0);//init 0
 			docs.add(doc);
+			List<Document> ret_docs = Jdbc.find("loginuser", new Document().append("name", name));
+			
+			List<Program> programs = ProgramsUtil.getProgramList();
+			List<String> program_names = new ArrayList<String>();
+			for (Program program : programs) {
+				program_names.add(program.getTv_name());
+			}
+			if (ret_docs.size() == 0) {//do not have
+				//a new one 
+				doc.append("str_need_care_program_set", ComUtil.ListStrToLongStr(program_names));
+				doc.append("total_need_care_cnt", programs.size());
+				Set<String> need_care_set = new HashSet<String>();
+				Jdbc.insert_doc("loginuser", doc);
+			} else {// update 
+				Document filter  = new Document();
+				filter.append("name", name);
+				Jdbc.UpdateOneByKey_Vaule("loginuser", filter, doc);
+			}
 		}
-		Jdbc.insert_docs("loginuser", docs);
+		
 	}
 
 	/**

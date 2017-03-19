@@ -16,6 +16,8 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.UpdateResult;
 
 
 /**
@@ -24,6 +26,8 @@ import com.mongodb.client.MongoDatabase;
  *
  */
 public class Jdbc {
+	// localhost  , 192.168.10.142
+	static final String CONNECT_DATABASE = "192.168.10.142";
 	static MongoDatabase MDB = null;
 	static final String database_name = "sina";//这个程序默认只会使用这一个数据库
 	
@@ -34,7 +38,7 @@ public class Jdbc {
 	 */
 	public static MongoDatabase getDataBase() {
 		if (null == MDB) {
-			 MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+			 MongoClient mongoClient = new MongoClient(CONNECT_DATABASE , 27017 );
 			 MDB= mongoClient.getDatabase(database_name);
 		}
 		return MDB;
@@ -152,5 +156,27 @@ public class Jdbc {
 			FileUtil.writeLog(file_save_path, str_doc);
 		}
 	}
+	
+	/**
+	 * update a doc by filter 
+	 * if do not have then:
+	 * 		do nothing
+	 * @param collection_name
+	 * @param filter
+	 * @param update_value
+	 */
+	public static void UpdateOneByKey_Vaule(String collection_name, Document filter, Document update_value) {
+		MongoCollection<Document> col = getCollection(collection_name);
+		col.updateMany(filter, new Document("$set", update_value));
+	}
+	
+	public static void main(String args[]) {
+		Document filter = new Document();
+		filter.append("id", 100);
+		Document update_value = new Document();
+		update_value.append("careenough", "1");
+		UpdateOneByKey_Vaule("loginuser", filter, update_value);
+	}
+	
 }
 

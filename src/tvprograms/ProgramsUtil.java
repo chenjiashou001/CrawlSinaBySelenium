@@ -101,8 +101,10 @@ public class ProgramsUtil {
 	
 	public static void main(String[] args) {
 		//TEST
-		formatSinaTags("标签： NBA NBA新闻 NBA图片 NBA投票 NBA视频 NBA球迷互动 NBA数据酷 NBA战报 NBA评论 NBA球员特写");
-		getDetailPorgramInfoByTVProgramName();
+		//formatSinaTags("标签： NBA NBA新闻 NBA图片 NBA投票 NBA视频 NBA球迷互动 NBA数据酷 NBA战报 NBA评论 NBA球员特写");
+		//getDetailPorgramInfoByTVProgramName();
+		//List<Document> docs = Jdbc.find("tv_program_info");
+		//FileUtil.saveDocsToFile(docs, COMPLETE_PROGRAM_FILE_PATH);
 //		init();
 //		
 //		int size = 0;
@@ -132,27 +134,31 @@ public class ProgramsUtil {
 
 	/*
 	 * 使用用户名 + tv播放量，加在sina上爬取获得programinfo
+	 * 并存入数据库中
+	 * 一般执行一次 
 	 */
 	private static void getDetailPorgramInfoByTVProgramName() {
 		_programs = new ArrayList<Program>();
-//		WebDriver driver = SeleniumUtil.getDriver();
-//		Login login = new Login();
-//		LoginUsersManage manage = new LoginUsersManage();
-//		LoginUser sinauser = manage.getUserByIndex(0);
-//		login.login(sinauser.getName(), sinauser.getPassword(), sinauser.getSafe_level(), driver);
+		WebDriver driver = SeleniumUtil.getDriver();
+		Login login = new Login();
+		LoginUsersManage manage = new LoginUsersManage();
+		LoginUser sinauser = manage.getUserByIndex(0);
+		login.login(sinauser.getName(), sinauser.getPassword(), sinauser.getSafe_level(), driver);
 		List<String> base_pro_infos = FileUtil.readLogByList(BASE_PROGRAM_FILE_PATH);
 		for (String base_pro_info : base_pro_infos) {
 			String tvname = base_pro_info.split(" ")[0];
 			System.out.println(tvname);
-//			String tvwatchtime = base_pro_info.split(" ")[1];
-//			Document program_doc = getDocProgramByTvProgramName(tvname, driver);
-//			if (program_doc == null) {
-//				continue;
-//			}
-//			program_doc.append("tv_name", tvname);
-//			program_doc.append("tv_watch_tim", tvwatchtime);
-//			Jdbc.insert_doc("tv_program_info", program_doc);
-//			Sleep.rand_time(30000, 30000);
+			//int tvwatchtime = Integer.parseInt(base_pro_info.split(" ")[1]);
+			String tvwatchtime = base_pro_info.split(" ")[1];
+			Document program_doc = getDocProgramByTvProgramName(tvname, driver);
+			if (program_doc == null) {
+				continue;
+			}
+			program_doc.append("tv_name", tvname);
+			program_doc.append("tv_watch_tim", tvwatchtime);
+			
+			Jdbc.insert_doc("tv_program_info", program_doc);
+			Sleep.rand_time(30000, 30000);
 			//debug 
 			//break;
 		}
@@ -226,7 +232,7 @@ public class ProgramsUtil {
 		return null;
 	}
 
-	private static int getProgramChoiseWay(String search_name) {
+	public static int getProgramChoiseWay(String search_name) {
 		String [] choise_first = {"冠军欧洲",""};
 		if (ComUtil.isStringInArray(search_name, choise_first)) {
 			return 1;

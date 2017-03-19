@@ -35,7 +35,7 @@ public class CookieUtil {
 		try{
 			cookieSet = driver.manage().getCookies();
 		} catch(Exception e) {
-			System.out.println("save cookie 寮傚父");
+			System.out.println("save cookie exception");
 			return false;
 		}
 		
@@ -48,12 +48,12 @@ public class CookieUtil {
         Document doc = new Document("name", cookie_name);
         doc.append("content", sb.toString());
         Jdbc.insert_doc(COOKIE_COLLECITION_NAME, doc);
-        System.out.println("CookieUtil :" + cookie_name + "鍐欏叆鎴愬姛!");
+        System.out.println("CookieUtil :" + cookie_name + "success write!");
 		return true;
 	}
 	
 	/**
-	 * 灏哻ookie_name鐨刢ookie鍐欏叆drivoer涓幓
+	 * let cookie_name write to driver 
 	 * @param cookie_name
 	 * @param driver
 	 * @return
