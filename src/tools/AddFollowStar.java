@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import mongodb.Jdbc;
 
@@ -25,13 +26,14 @@ import tvprograms.ProgramsUtil;
  */
 public class AddFollowStar {
 	static String PATH_PROGRAM_FILE = "C:\\Users\\chenjiashou\\Desktop\\ALLSAVE";
-	
+	static final int MAX_CARE_NUM_ONEDAY = 70;
+	static final int ONE_CYCLE_NUM = 25;
 	static List<String> need_follow_program;
 	static List<Integer> program_watchtime;
 	static Map<String, String> program_id;
 	
-	static int[] login_user_set = {1, 2, 3, 4, 5, 27, 28};
-	
+	static int[] login_user_set = {11, 28, 24, 25, 26};
+	static final int sleep_time = 3000;
 	/**
 	 * two encode to get search url
 	 * @param tv_name
@@ -54,23 +56,37 @@ public class AddFollowStar {
 		Login login = new Login();
 		WebDriver driver = SeleniumUtil.getDriver();
 		
-		SeleniumUtil.getAndSaveUserCookie(driver, user_ids);
+		//SeleniumUtil.getAndSaveUserCookie(driver, user_ids);
 		
 		LoginUsersManage manage = new LoginUsersManage();
-		for (int i = 0; i < user_ids.length; i++) {
-			sleep(5000);
-			login.switchLogin(driver, String.valueOf(user_ids[i]));
-			LoginUser user = manage.getUserByIndex(user_ids[i]);
-			if (user.getToday_care_cnt() >= 100) {
-				continue;
+		while (true) { 
+			boolean flag = false;
+			for (int i = 0; i < user_ids.length; i++) {
+				//bigger than day_max_num or already done
+				LoginUser user = manage.getUserByIndex(user_ids[i]);
+				if (user.getToday_care_cnt() >= MAX_CARE_NUM_ONEDAY) {
+					continue;
+				}
+				List<String> programs = new ArrayList<String>();
+				if (user.getNeed_care_program_set() == null || 
+					user.getNeed_care_program_set().size() == 0) {
+					continue;
+				}
+				
+				sleep(2000);
+				
+				driver.manage().deleteAllCookies();
+				login.login(user, driver);
+				driver.manage().timeouts().pageLoadTimeout(1, TimeUnit.HOURS);
+				
+				
+				programs.addAll(user.getNeed_care_program_set());
+				OneUserAddFollow(driver, programs, user);
+				flag = true;
 			}
-			List<String> programs = new ArrayList<String>();
-			if (user.getNeed_care_program_set() == null || 
-				user.getNeed_care_program_set().size() == 0) {
-				continue;
+			if (!flag) {
+				break;
 			}
-			programs.addAll(user.getNeed_care_program_set());
-			OneUserAddFollow(driver, programs, user);
 		}
 	}
 
@@ -90,18 +106,23 @@ public class AddFollowStar {
 	private static void OneUserAddFollow(WebDriver driver, List<String> programs, LoginUser user) {
 		Set<String> need_care_program_set = user.getNeed_care_program_set();
 		int today_care_cnt = user.getToday_care_cnt();
+		int cycle_cnt = 0;
 		for (int i = 0; i < programs.size(); i++) {
+			cycle_cnt++;
+			if (cycle_cnt > ONE_CYCLE_NUM) {
+				return ;
+			}
 			String search_name = programs.get(i);
 			System.out.println("searchname =" + search_name);
 			
 			driver.get(getSearchUrl(search_name));
-			sleep(15888);
+			sleep(sleep_time * 3);
 			List<WebElement> divs = driver.findElements(By.xpath("//*[@class='list_person clearfix']"));
 			boolean have_find = false;
 			
 			for (int j = 0; j < Math.min(divs.size(), ProgramsUtil.getProgramChoiseWay(search_name)); j++) {
-				sleep(8233);
-				Sleep.rand_time(5000, 10000);
+				
+				Sleep.rand_time(sleep_time * 2, 10000);
 				String uid = null;
 				String name = null;
 				WebElement div = divs.get(j);
@@ -129,14 +150,14 @@ public class AddFollowStar {
 				if (buttons.size() != 0) {
 					//saveProgramId(i, uid, name);
 					buttons.get(0).click();
-					sleep(10000);
+					sleep(sleep_time);
 					
 					List<WebElement> submits = driver.findElements(By.xpath("//*[@action-type='submit']"));
 					if (submits.size() != 0) {
 						submits.get(0).click();
 					}
 					//sleep(1000000);
-					sleep(5000);
+					sleep(sleep_time);
 					need_care_program_set.remove(search_name);
 					today_care_cnt++;
 					user.setNeed_care_program_set(need_care_program_set);
