@@ -32,7 +32,7 @@ public class AddFollowStar {
 	static List<Integer> program_watchtime;
 	static Map<String, String> program_id;
 	
-	static int[] login_user_set = {11, 28, 24, 25, 26};
+	static int[] login_user_set = {28, 24, 25, 26};
 	static final int sleep_time = 3000;
 	/**
 	 * two encode to get search url
@@ -56,7 +56,7 @@ public class AddFollowStar {
 		Login login = new Login();
 		WebDriver driver = SeleniumUtil.getDriver();
 		
-		//SeleniumUtil.getAndSaveUserCookie(driver, user_ids);
+		SeleniumUtil.getAndSaveUserCookie(driver, user_ids);
 		
 		LoginUsersManage manage = new LoginUsersManage();
 		while (true) { 
