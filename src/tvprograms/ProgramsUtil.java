@@ -100,6 +100,7 @@ public class ProgramsUtil {
 	}
 	
 	public static void main(String[] args) {
+		printProgramIdAndName();
 		//TEST
 		//formatSinaTags("标签： NBA NBA新闻 NBA图片 NBA投票 NBA视频 NBA球迷互动 NBA数据酷 NBA战报 NBA评论 NBA球员特写");
 		//getDetailPorgramInfoByTVProgramName();
@@ -123,6 +124,14 @@ public class ProgramsUtil {
 //			//LogUtil.debug(PrintClass.outObjPropertyString(program));
 //			//break;
 //		}
+	}
+
+	private static void printProgramIdAndName() {
+		List<String> base_pro_infos = FileUtil.readLogByList(BASE_PROGRAM_FILE_PATH);
+		for (String base_pro_info : base_pro_infos) {
+			String tvname = base_pro_info.split(" ")[0];
+			System.out.println("\"" + tvname + "\",");
+		}
 	}
 
 	private static void formatSinaTags(String str) {

@@ -32,7 +32,7 @@ public class AddFollowStar {
 	static List<Integer> program_watchtime;
 	static Map<String, String> program_id;
 	
-	static int[] login_user_set = {28, 24, 25, 26};
+	static int[] login_user_set = {14, 28, 24, 25, 26};
 	static final int sleep_time = 3000;
 	/**
 	 * two encode to get search url
@@ -56,7 +56,7 @@ public class AddFollowStar {
 		Login login = new Login();
 		WebDriver driver = SeleniumUtil.getDriver();
 		
-		SeleniumUtil.getAndSaveUserCookie(driver, user_ids);
+		//SeleniumUtil.getAndSaveUserCookie(driver, user_ids);
 		
 		LoginUsersManage manage = new LoginUsersManage();
 		while (true) { 
@@ -113,7 +113,7 @@ public class AddFollowStar {
 				return ;
 			}
 			String search_name = programs.get(i);
-			System.out.println("searchname =" + search_name);
+			System.out.println("user_id = " + user.getId() + ", searchname = " + search_name);
 			
 			driver.get(getSearchUrl(search_name));
 			sleep(sleep_time * 3);
@@ -149,12 +149,15 @@ public class AddFollowStar {
 				List<WebElement> buttons = driver.findElements(By.className("person_adbtn"));
 				if (buttons.size() != 0) {
 					//saveProgramId(i, uid, name);
-					buttons.get(0).click();
-					sleep(sleep_time);
-					
-					List<WebElement> submits = driver.findElements(By.xpath("//*[@action-type='submit']"));
-					if (submits.size() != 0) {
-						submits.get(0).click();
+					try {
+						buttons.get(0).click();
+						sleep(sleep_time);
+						List<WebElement> submits = driver.findElements(By.xpath("//*[@action-type='submit']"));
+						if (submits.size() != 0) {
+							submits.get(0).click();
+						}
+					} catch (Exception e){
+						break;
 					}
 					//sleep(1000000);
 					sleep(sleep_time);

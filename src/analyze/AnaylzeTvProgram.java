@@ -2,6 +2,7 @@ package analyze;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -17,8 +18,11 @@ import mongodb.Jdbc;
 
 import org.bson.Document;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 import cookie.CookieUtil;
 import sinaaccount.LoginUsersManage;
@@ -37,9 +41,19 @@ public class AnaylzeTvProgram {
 	 * 2 是登录用户，并写入cookie
 	 * 3读取数据库中的节目，然后获取用户信息
 	 */
-	static int FLAG_ANALYZER_OR_GETUSER = 2;
-	static int[] login_user_set = {28};
-	
+	static int FLAG_ANALYZER_OR_GETUSER = 3;
+	static int[] login_user_set = {0, 1, 2, 3, 4, 5};
+	static String[] need_catch_programs = {
+		"#NBA#",
+		"#CBA#",
+		"#足球#",
+		"#篮球#",
+		"#欧冠#",
+		"#德甲#",
+		"#英超#",
+		"#冠军欧洲#",
+	};
+	static int FIRST_PAGE = 1;
 	
 	static Map<String, String> id_link_program;
 	static Set<String> program_set;
@@ -135,14 +149,14 @@ public class AnaylzeTvProgram {
 	 * @return
 	 */
 	private static List<String> getProgram() {
-		List<Document> docs = ProgramInfoUtil.getToFile();
+		//List<Document> docs = ProgramInfoUtil.getToFile();
 		//List<Document> docs = Jdbc.find("program_info");
-		List<String> programs = new ArrayList<String>();
-		for (int i = 166; i < 200; i++) {
-			programs.add(docs.get(i).getString("program_name"));
-			System.out.println("getProgram " + i + ":" + docs.get(i).getString("program_name"));
-		}
-		return programs;
+//		List<String> programs = new ArrayList<String>();
+//		for (int i = 166; i < 200; i++) {
+//			programs.add(docs.get(i).getString("program_name"));
+//			System.out.println("getProgram " + i + ":" + docs.get(i).getString("program_name"));
+//		}
+		return new ArrayList<String>(Arrays.asList(need_catch_programs));
 	}
 
 	/**
@@ -233,7 +247,7 @@ public class AnaylzeTvProgram {
 									  String p_url, String p_name) {
 		Login login = new Login();
 		int tmp_cnt = 0;
-		for (int i = 2; i <= page_num; i += one_step) {
+		for (int i = FIRST_PAGE; i <= page_num; i += one_step) {
 			System.out.println("\n------------------------\npage=" + i + "\n----------------------\n");
 			tmp_cnt++;
 			if (tmp_cnt % 5 == 0) {
@@ -252,6 +266,29 @@ public class AnaylzeTvProgram {
 		}
 	}
 	
+    public static boolean isByElementDisplayed(By by, int time,WebDriver chrome) {
+        boolean status = true;
+        int wait_cnt = 0;
+        while(!isByPresent(chrome, by)){
+        	wait_cnt++;
+        	if (wait_cnt > 5) {
+        		return false;
+        	}
+        	chrome.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
+        }
+        return status;      
+    }
+    
+    public static boolean isByPresent(WebDriver chrome, By by){
+        boolean display = false;
+        try{
+            chrome.findElement(by).isDisplayed();
+            return display= true;
+        }catch(NoSuchElementException e){
+            return display;
+        }
+    } 
+	
 	public static boolean getOnePageUser(int page_id, WebDriver driver, String program_url, String program_name) {
 		String src = program_url;
 		src += String.valueOf(page_id);
@@ -259,13 +296,8 @@ public class AnaylzeTvProgram {
 		int try_cnt = 0;
 
 		driver.get(src);
-		
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		isByElementDisplayed(By.className("W_face_radius"), 30, driver);
 		
 		List<WebElement> users = driver.findElements(By.className("W_face_radius"));
 		System.out.println("users.size() = " + users.size());
@@ -282,7 +314,7 @@ public class AnaylzeTvProgram {
 				continue;
 			}
 			
-			Sleep.sleep(5000);
+			Sleep.sleep(1000);
 			
 			String user_id = usercard.substring(usercard.indexOf("=") + 1, usercard.indexOf("&"));
 			System.out.println(user_id);
@@ -303,6 +335,7 @@ public class AnaylzeTvProgram {
 			user.SetUserByPage(driver, url, id_users.get(i), flag_last, program_name, id_link_program);
 			
 			Jdbc.insert_doc("user_program_data", user.getUserDoc(program_name));
+			Sleep.rand_time(1000,2000);
 		}
 		
 		return true;
@@ -313,7 +346,7 @@ public class AnaylzeTvProgram {
 		Login login = new Login();
 		driver.get("http://weibo.com/login.php");
 		
-		for (int i =0; i <= user_ids.length; i++) {
+		for (int i =0; i < user_ids.length; i++) {
 			int user_id = user_ids[i];
 			now_index = i;
 			if (login.switchLogin(driver, String.valueOf(user_id)) ) {
